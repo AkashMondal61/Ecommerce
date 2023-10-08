@@ -6,7 +6,7 @@ const product=require("../models/productModels");
 const Errorhandeler =require("../utils/errorhandellaer.js");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const express = require("express");
-const Features = require("../utils/features");
+const Features = require("../utils/features.js");
 //creat product --- Admin
 exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
   const Product= await product.create(req.body);
@@ -17,8 +17,13 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
 })
 //Get All Products 
 exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
-    const apifeature=new Features(product.find(),req.query.keyword ).search();
-    const products= await product.find();
+    const elementperpage=2;
+   const apifeature=new Features(product.find(),req.query)
+   .search()
+   .filter()
+  .pagination(elementperpage)
+    const products= await apifeature.query;
+//    const products=await product.find();
     if(!products)
     {
         return next(new Errorhandeler("No product exist",404));
