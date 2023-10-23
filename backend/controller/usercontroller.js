@@ -3,7 +3,7 @@ const Errorhandeler =require("../utils/errorhandellaer.js");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const user=require("../models/usermodel.js");
  const sendToken =require("../utils/jwttoken.js");
- const sendEmail=require("../utils/sendEmail.js")
+ const {sendEmail}=require("../utils/sendEmail");
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
 const {name,email,password}=req.body;
 const User=await user.create({
@@ -78,37 +78,38 @@ exports.logout=catchAsyncErrors(async(req,res,next)=>{(
 )});
 
 // function for forgot password
-exports.forgotpassword=catchAsyncErrors(async(req,res,next)=>{
+exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     const uSer=await user.findOne({email:req.body.email});
     if(!uSer){
-        return next(new Errorhandeler("user not found",404));
+        return next (new Errorhandeler("user not found",404));
     }
    // get resetpasswordtoken 
-    const resetToken= await uSer.generateNewPassword();
+    const resetToken= await uSer.getResetPasswordToken();
     
 
     await uSer.save({validateBeforeSave:false});
-    console.log("bfcjjc")
     const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1//forgotpassword/${resetToken}`;
-    const message=`your password chnge link is :- \n\n ${resetPasswordUrl} \n\n If you have not requested this 
+    const message=`Hi ${uSer.name} your password chnge link is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this 
     email then please ignore it `;
     try{
+  
        await sendEmail({
         email:uSer.email,
         subject:"Ecommerce password Recovery",
         message,
        })
+       
        res.status(200).json({
         sucess:true,
         message:`email send to ${uSer.email} secessfully`,
-        message,
+       
        });
     }catch(error){
-      
+       // console.log(error); 
      uSer.resetPasswordToken=undefined;
      uSer.resetPasswordExpire= undefined;
      await uSer.save({validateBeforeSave:false});
-     return next(new Errorhandeler(error.message,500));
+     return next (new Errorhandeler(error.message,500)) ;
     }
    
 })

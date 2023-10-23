@@ -41,12 +41,12 @@ const useSchema = new mongoose.Schema({
     resetPasswordExpire:Date,
 })
 //becrypting password
-useSchema.pre("save",async function(net){
+useSchema.pre("save",async function(next){
     if(this.isModified("password")){
     this.password=await bcrypt.hash(this.password,10);
     }
     else {
-        next(); 
+       return  next(); 
     }
 })
 //jwt token 
@@ -62,7 +62,7 @@ useSchema.methods.comaparePassword= async function(enteredPassword){
 //generating password reset token
 
 
-useSchema.methods.generateNewPassword= function(){
+useSchema.methods.getResetPasswordToken= function(){
 //generate token
 const resetToken=crypto.randomBytes(20).toString("hex");
  // hashing and reset and update in schema
