@@ -1,5 +1,5 @@
 //importing db
-const productModels = require("../models/productModels");
+// const productModels = require("../models/productModels");
 const product=require("../models/productModels");
 // const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
 
@@ -9,6 +9,7 @@ const express = require("express");
 const Features = require("../utils/features.js");
 //creat product --- Admin
 exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
+  req.body.user=req.user.id;
   const Product= await product.create(req.body);
    res.status(201).json({
       success:true, 
@@ -18,6 +19,7 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
 //Get All Products 
 exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
     const elementperpage=2;
+    const productcount=await product.countDocuments();
    const apifeature=new Features(product.find(),req.query)
    .search()
    .filter()
@@ -30,7 +32,8 @@ exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
     }
     res.status(200).json({ 
         success:true,
-        products    
+        products ,
+        productcount,   
      });   
 })
 
