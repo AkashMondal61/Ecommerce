@@ -202,6 +202,7 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
 exports.getOneUser=catchAsyncErrors(async(req,res,next)=>{
     
     const uSer=await user.findById(req.params.id);
+    // console.log(uSer.id)
     if(!uSer)
     {
         return next(new Errorhandeler(`user does not exist with ${req.params.id}`,404))
