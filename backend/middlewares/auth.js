@@ -4,13 +4,13 @@ const User=require("../models/usermodel");
 const jwt=require("jsonwebtoken");
 exports.isAuthenticateUser= catchAsyncErrors(async(req,res,next)=>{
   const {token}=req.cookies;
-  console.log(token);
+  // console.log(token);
   if(!token)
   {
     return next(new ErrorHandeler("Please log in first",203 ));
   }
   const decodeData=jwt.verify(token,process.env.JWT_SECRETKEY );
-  req.user=await User.findById(decodeData.id); //req.user contains all information  about  
+  req.user=await User.findById(decodeData.id); //req.user contains all information  about  the user
   next();
 })
 

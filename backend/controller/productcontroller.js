@@ -101,3 +101,86 @@ exports.getProductdetails=catchAsyncErrors(async(req,res,next)=>{
     theproduct
   })
 } )
+
+
+//create new review and update review 
+exports.createreview=catchAsyncErrors(async(req,res,err)=>{
+  const {rating,comment,productId} =req.body;
+  const review ={
+    user:req.user.id,
+    name:req.user.name,
+    rating:Number(rating),
+    comment, 
+  }
+  // console.log(productId);
+  const Product= await product.findById(productId);
+  // console.log(Product.name);
+  //console.log(Product.reviews.user);
+  const isReviewed= await Product.reviews.find((rev)=>rev.user.toString()===req.user.id.toString());
+  if(isReviewed)
+  {
+    Product.reviews.forEach((rev)=>{
+      if(rev.user.toString()===req.user.id.toString()){
+      rev.rating=rating,
+      rev.comment=comment
+      }
+    });
+  }
+  else
+  {
+    Product.reviews.push(review);
+    Product.numOfreviews=Product.reviews.length;
+    console.log(Product.numOfreviews);
+
+  }
+  // await Product.save({ validateBeforeSave:false});
+  // console.log(Product.numOfreviews);
+  let avg=0;
+   Product.reviews.forEach((rev)=>{
+   avg= avg+rev.rating
+  })
+  console.log(Product.numOfreviews);
+  Product.ratings=avg/Product.numOfreviews;
+  await Product.save({ validateBeforeSave:false});
+  res.status(202).json({
+    sucess:true,
+  })
+})
+
+// See all Reviews
+exports.getAllreviews=catchAsyncErrors(async(req,res,next)=>{
+  const Product=await product.findById(req.query.id);
+  if(!Product)
+  {
+    return next(new Errorhandeler("Product not found",404));
+  }
+  const allreviews=await Product.reviews;
+  res.status(202).json({
+    sucess:true,
+    allreviews
+  })
+})
+
+// delete reviews
+ 
+exports.deleteReviews=catchAsyncErrors(async(req,res,next)=>{
+  const Product=await product.findById(req.query.id);
+  if(!Product)
+  {
+    return next(new Errorhandeler("Product not found",404));
+  }
+  const needreviews=await Product.reviews.filter((rev)=>rev.user.toString()!==req.user.id.toString())
+  let avg=0;
+  needreviews.forEach((rev)=>{
+   avg= avg+rev.rating
+  })
+  const Ratings=avg/needreviews.length;
+  Product.ratings=Ratings;
+  Product.reviews=needreviews;
+  Product.numOfreviews=needreviews.length;
+  await Product.save({ validateBeforeSave:false});
+  res.status(202).json({
+    sucess:true,
+    Product
+  })
+})

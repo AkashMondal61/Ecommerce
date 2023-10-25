@@ -4,8 +4,13 @@ const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const user=require("../models/usermodel.js");
  const sendToken =require("../utils/jwttoken.js");
  const {sendEmail}=require("../utils/sendEmail");
+ const crypto=require("crypto");
+const { use } = require("../routes/userout.js");
+
+
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
 const {name,email,password}=req.body;
+
 const User=await user.create({
     name,
     email,
@@ -29,9 +34,6 @@ sendToken(User,201,res);
 
 
 //login
-
-
-
 
 exports.loginUser=catchAsyncErrors(async(req,res,next)=>{
   const {email,password}=req.body; 
@@ -88,7 +90,7 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     
 
     await uSer.save({validateBeforeSave:false});
-    const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1//forgotpassword/${resetToken}`;
+    const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1//resetpassword/${resetToken}`;
     const message=`Hi ${uSer.name} your password chnge link is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this 
     email then please ignore it `;
     try{
@@ -113,3 +115,135 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     }
    
 })
+
+
+
+//Reset Password
+ exports.resetPassword=catchAsyncErrors(async(req,res,next)=>{
+    console.log(req.params.token);
+   const resetPassToken= crypto.createHash("sha256").update(req.params.token).digest("hex");
+   const uSer=await user.findOne({resetPasswordToken:resetPassToken ,resetPasswordExpire:{$gt:Date.now()},});
+   if(!uSer)
+   {
+     return next(new Errorhandeler("Please log in first or password token has expired",202))
+   }
+   if(req.body.password!=req.body.confirmpassword)
+   return next(new Errorhandeler("password does not match",404));
+   uSer.password=req.body.password;
+   uSer.resetPasswordExpire=undefined;
+   uSer.resetPasswordToken=undefined;
+   await uSer.save({validateBeforeSave:false});
+   sendToken(uSer,202,res);
+ })
+
+
+//  user details
+ exports.userDetails=catchAsyncErrors(async(req,res,next)=>{
+    const uSer= await user.findById(req.user.id);
+    res.status(202).json({
+        sucess:true,
+        message:uSer,
+    })
+ })
+
+
+ //  Update User Password
+ exports.updatePassword=catchAsyncErrors(async(req,res,next)=>{
+
+    const uSer= await user.findById(req.user.id).select("+password");
+    const isPasswordMatched=await uSer.comaparePassword(req.body.oldpassword);
+    if(!isPasswordMatched)
+    {
+        return next(new Errorhandeler("oldpassword is incorrect",404));
+    }
+    if(req.body.newpassword!=req.body.confirmpassword)
+    {
+        return next(new Errorhandeler("password doesnot matched",404));
+    }
+    uSer.password=req.body.newpassword;
+    await uSer.save({validateBeforeSave:false}); 
+    sendToken(uSer,202,res);
+ })
+
+
+  //  Update User Profile
+
+  exports.updateProfile=catchAsyncErrors(async(req,res,next)=>{
+
+    const newUserData={
+        name:req.body.name,
+        email:req.body.email,
+    }
+    const uSer=await user.findByIdAndUpdate(req.user.id,newUserData,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false,
+    });
+    res.status(200).json({
+        sucess:true,
+        uSer
+    })
+ })
+
+ // Get all user details 
+
+ exports.getAllUser=catchAsyncErrors(async(req,res,next)=>{
+    
+    const uSers=await user.find();
+    res.status(200).json({
+        sucess:true,
+        uSers
+    })
+ })
+
+
+// Get aone user details 
+
+exports.getOneUser=catchAsyncErrors(async(req,res,next)=>{
+    
+    const uSer=await user.findById(req.params.id);
+    if(!uSer)
+    {
+        return next(new Errorhandeler(`user does not exist with ${req.params.id}`,404))
+    }
+    res.status(200).json({
+        sucess:true,
+        uSer
+    })
+ })
+
+   //  Update User role by admin only
+   exports.updateRole=catchAsyncErrors(async(req,res,next)=>{
+
+    const newUserData={
+        name:req.body.name,
+        email:req.body.email,
+        role:req.body.role,
+    }
+   console.log(req.params.id);
+    const uSer=await user.findByIdAndUpdate(req.params.id,newUserData,{
+        new:true,
+        runValidators:true,
+        useFindAndModify:false,
+    });
+    res.status(200).json({
+        sucess:true,
+        uSer
+    })
+ }) 
+
+
+   //  Delete User  by admin only
+   exports.Deleteuser=catchAsyncErrors(async(req,res,next)=>{
+   const uSer= await user.findById(req.params.id); 
+    if(!uSer)
+    {
+        return next (new Errorhandeler("User not found",404))
+    }
+    //remove cloudinary later
+    await uSer.deleteOne();
+    res.status(200).json({
+        sucess:true,
+        uSer
+    })
+ })

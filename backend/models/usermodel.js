@@ -52,7 +52,7 @@ useSchema.pre("save",async function(next){
 //jwt token 
 useSchema.methods.getToken= function(){
     return  jwt.sign({id:this._id},process.env.JWT_SECRETKEY,{
-        expiresIn:process.env.COOKIE_EXPIRE,
+        expiresIn:process.env.JWT_EXPIRE,
     })
 }
 //compare password

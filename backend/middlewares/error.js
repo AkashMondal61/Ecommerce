@@ -9,6 +9,25 @@ const errormiddleware=(err,req,res,next)=>{
         const message=`Resourse not found: invalid:${err.path}`;
         err=new ErrorHandeler(message,400) ;
     }
+    //if duplicate email found
+    if(err.code===11000)
+    {
+        const message=`User with ${Object.keys(err.keyValue)} already exist`;
+        err=new ErrorHandeler(message,400) ;
+    }
+    //wrong JWT token error
+    if(err.name==="JsonWebTokenError")
+    {
+        const message=`Invalid token please try again`;
+        err=new ErrorHandeler(message,400) ;
+    }
+      //JWT token expire error
+      if(err.name === "TokenExpiredError")
+      {
+          const message=`Token has expired please relogin `;
+          err=new ErrorHandeler(message,400) ;
+      }
+
     res.status(err.statusCode).json({
         success:false,
         error:err.message,
