@@ -17,8 +17,9 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
   }) 
 })
 //Get All Products 
-exports.getAllProducts = catchAsyncErrors(async(req,res)=>{
-    const elementperpage=2;
+exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
+  return next(new Errorhandeler("No product exist",404));
+    const elementperpage=8 ;
     const productcount=await product.countDocuments();
    const apifeature=new Features(product.find(),req.query)
    .search()
