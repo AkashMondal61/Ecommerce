@@ -74,22 +74,14 @@ const Home = () => {
   const alert=useAlert();
   const dispatch = useDispatch();
   const {loading,error, products,productCount } = useSelector((state) => state.products);
-
+  //  console.log(error);
   useEffect(() => {
-    async function fetchData() {
-      try {
         if(error)
         {
           return alert.error(error);
         }
-        await dispatch(getproduct());
-      } catch (err) {
-        console.error("Error fetching products:", err);
-      }
-    }
-
-    fetchData();
-  }, []);
+        dispatch(getproduct());
+  }, [dispatch,error,alert]);
 
   return (
     <Fragment>
@@ -105,11 +97,15 @@ const Home = () => {
       </div>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
-        {products.length > 0 ? (
+        {/* {products.length > 0 ? (
           products.map((product) => <Product product={product} />)
         ) : (
           <p>Loading...</p>
-        )}
+        )} */}
+         {products &&
+              products.map((product) => 
+              <Product product={product}/>
+              )}
       </div>
       </Fragment>
       }

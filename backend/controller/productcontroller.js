@@ -18,7 +18,7 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
 })
 //Get All Products 
 exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
-  return next(new Errorhandeler("No product exist",404));
+ // return next(new Errorhandeler("No product exist",404));
     const elementperpage=8 ;
     const productcount=await product.countDocuments();
    const apifeature=new Features(product.find(),req.query)
@@ -99,7 +99,7 @@ exports.getProductdetails=catchAsyncErrors(async(req,res,next)=>{
   res.status(200).json({ 
     success:true, 
     message:"producted found" ,
-    theproduct
+    theproduct,
   })
 } )
 

@@ -10,6 +10,7 @@ import {
 import Header from './componenet/layout/Header/Header';
 import Footer from './componenet/layout/Footer/Footer';
 import Home from './componenet/Home/Home';
+import Productdetails from './componenet/Product/Productdetails';
 const App = () => {
   return (<>
     <BrowserRouter>
@@ -17,11 +18,12 @@ const App = () => {
     <Header/>
     <Routes>
     <Route path="/" element={<Home/>}/>
+    <Route path="/:id" element={<Productdetails/>}/>
     </Routes>
     <Footer/>
    </BrowserRouter>
    </>
-  );
+  ); 
 }
 
 export default App;
