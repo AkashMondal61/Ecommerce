@@ -20,15 +20,6 @@ const Productdetails = () => {
         dispatch(getproductDetails(id));
         
     },[dispatch,id])
-//     console.log("this")
-    console.log(product);
-    // if(product.theproduct)
-    // console.log(product.theproduct.name);
-//     if(product.theproduct)
-//    product.theproduct.image.map((item, i) => (
-//    console.log(item.url)
-//  ));  
-// if(product){
 const options = {
   value:  product.ratings,
   readOnly: true,
@@ -37,11 +28,11 @@ const options = {
     return(
         <Fragment>
             <div className="ProductDetails">
-            <div>
+            <div className="im"> 
               <Carousel>
                 {product.image &&
                   product.image.map((item, i) => (
-                    <img
+                    <img 
                       className="CarouselImage"
                       key={i}
                       src={item.url}
@@ -51,7 +42,7 @@ const options = {
               </Carousel>
             </div>
             
-            <div>
+            <div className="details">
            
               <div className="detailsBlock-1">
                 <h2>{product.name}</h2>
@@ -69,7 +60,7 @@ const options = {
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
                     <button >-</button>
-                    <input readOnly type="number" value={1} />
+                    <input readOnly type="number" value={ 1} />
                     <button >+</button>
                   </div>
                   <button

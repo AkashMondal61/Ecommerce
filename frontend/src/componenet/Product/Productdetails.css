@@ -1,29 +1,50 @@
-/* .ProductDetails {
+body{
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+}
+.ProductDetails {
     background-color: rgb(255, 255, 255);
-    width: 100vw;
-    max-width: 100%;
-    padding: 6vmax;
     box-sizing: border-box;
     display: flex;
-  } */
+    width: 100vw;
+    max-width: 100%;
+  }
+  .im{
+    width: 50%;
+    padding-left: 10vmax;
+    padding-top: 10vmax;
+    padding-bottom: 10vmax;
+  }
+  .CarouselImage{
+    height:30vmax;
+    min-height: 300px;
+    padding-left: 5vmax;
+  }
+  .Carousel {
+    width: 100%;
+    flex: 1; /* Takes up the available space */
+  }
   
-  .ProductDetails > div {
+  
+   .details {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    padding: 2vmax;
+    padding: 10vmax 2vmax 10vmax 2vmax;
     box-sizing: border-box;
     border: 1px solid white;
-  } 
+  }  
   
-  /* .ProductDetails > div:last-child {
+  .details {
     align-items: flex-start;
   }
   
   .CarouselImage {
     width: 20vmax;
+    min-width: 200px;
   }
   
   .detailsBlock-1 > h2 {
@@ -202,8 +223,18 @@
       flex-direction: column;
       height: unset;
     }
-  
-    .ProductDetails > div:last-child {
+    .im{
+      width: 50%;
+      padding-left: 10vmax;
+      padding-top: 10vmax;
+      padding-bottom: 5vmax;
+    }
+    .CarouselImage{
+      height:30vmax;
+      
+    }
+    .details{
+      padding-top: 5vmax;
       align-items: center;
     }
   
@@ -281,4 +312,4 @@
     .reviewCardComment {
       font: 300 5vw cursive;
     }
-  } */
+  }
