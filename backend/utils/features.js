@@ -20,7 +20,7 @@ class Features{
         const querycopy={...this.querystr};
       
         //removing fields to get catagory
-        const removefields=["keyword","page","limit"];
+        const removefields=["keyword","page","limit","category"];
         removefields.forEach((key)=>delete querycopy[key]);
         // filter for range in price and rating
 

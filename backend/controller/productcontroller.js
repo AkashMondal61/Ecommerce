@@ -1,12 +1,10 @@
 //importing db
-// const productModels = require("../models/productModels");
 const product=require("../models/productModels");
-// const catchAsyncErrors=require("../middlewares/catchAsyncErrors");
-
 const Errorhandeler =require("../utils/errorhandellaer.js");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const express = require("express");
 const Features = require("../utils/features.js");
+const { listenerCount } = require("nodemailer/lib/xoauth2/index.js");
 //creat product --- Admin
 exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
   req.body.user=req.user.id;
@@ -19,22 +17,53 @@ exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
 //Get All Products 
 exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
  // return next(new Errorhandeler("No product exist",404));
-    const elementperpage=8 ;
+    
+    const elementperpage=6 ;
     const productcount=await product.countDocuments();
-   const apifeature=new Features(product.find(),req.query)
-   .search()
-   .filter()
-  .pagination(elementperpage)
-    const products= await apifeature.query;
-//    const products=await product.find();
-    if(!products)
+    const {category,keyword, page ,price}=req.query;
+    console.log(price);
+    const querys={};
+    if (keyword) {
+      querys.name = { $regex: new RegExp(keyword, 'i') }; // Case-insensitive keyword search
+    }
+    if (price) {
+      querys.price = { $gte: price.gt, $lte:price.lt };
+    }
+    // if (ratings) {
+    //   filters.ratings = { $gte: parseInt(ratings) };
+    // }
+    if (category) {
+      querys.category = { $regex: new RegExp(category, 'i') };
+    }
+    let currentpage=Number(req.query.page)||1;
+    const skip=elementperpage*(currentpage-1);
+    
+    let Products;
+    if(page){
+    Products = await product.find(querys)
+      .skip(skip)
+      .limit(elementperpage)
+    }
+    else
+    {
+      Products = await product.find(querys)
+    }
+  // console.log(Products);
+  //  const apifeature=new Features(product.find(),req.query)
+  //  .search()
+  //  .filter()
+  //  .pagination(elementperpage);
+  //  let products= await apifeature.query;
+    if(!Products)
     {
         return next(new Errorhandeler("No product exist",404));
     }
     res.status(200).json({ 
         success:true,
-        products ,
+        Products ,
         productcount,   
+        elementperpage,
+    
      });   
 })
 

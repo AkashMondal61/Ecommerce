@@ -2,31 +2,44 @@ import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./Productdetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import { getproductDetails } from "../../actions/productaction";
+import { clearerror, getproductDetails } from "../../actions/productaction";
 import { Params } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component"
-
-
-
+import Loader from "../layout/Loader/Loader"
+import ReviewCard from "./Reviewcard";
+import { useAlert } from "react-alert";
 
 const Productdetails = () => {
-    
+    const Alert=useAlert();
     const dispatch=useDispatch();
     const {id}=useParams();
     // console.log(id);
-    const {product}=useSelector(state=>state.productDetails)
+    const {product,loading,error}=useSelector(state=>state.productDetails)
     useEffect(()=>{
+      if(error)
+      {
+        Alert.error(error);
+        dispatch(clearerror( ));
+      }
         dispatch(getproductDetails(id));
         
-    },[dispatch,id])
+    },[dispatch,id,error,Alert])
+    // console.log(product);
 const options = {
+    edit:false,
+    color:"rgba",
+    activeColor:"tomato",
   value:  product.ratings,
   readOnly: true,
-  precision: 0.5,
+  isHalf:true,
 };
     return(
         <Fragment>
+          {loading ? (
+        <Loader />
+      ) : (
+          <Fragment>
             <div className="ProductDetails">
             <div className="im"> 
               <Carousel>
@@ -52,7 +65,7 @@ const options = {
                 { <ReactStars {...options} /> }
                 <span className="detailsBlock-2-span">
                   {" "}
-                  ({product.numOfReviews} Reviews)
+                  ({product.numOfreviews} Reviews)
                 </span>
               </div>
               <div className="detailsBlock-3">
@@ -65,8 +78,7 @@ const options = {
                   </div>
                   <button
                     disabled={product.stock < 1 ? true : false}
-                   
-                  >
+                     >
                     Add to Cart
                   </button>
                 </div>
@@ -88,7 +100,52 @@ const options = {
               </button>
             </div>
           </div>
+          <h3 className="reviewsHeading">REVIEWS</h3>
+          <div className="review">
+          {/* <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          > */}
+            {/* <DialogTitle>Submit Review</DialogTitle>
+            <DialogContent className="submitDialog">
+              <Rating
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
+                size="large"
+              />
 
+              <textarea
+                className="submitDialogTextArea"
+                cols="30"
+                rows="5"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}  
+              ></textarea>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={submitReviewToggle} color="secondary">
+                Cancel
+              </Button>
+              <Button onClick={reviewSubmitHandler} color="primary">
+                Submit
+              </Button>
+            </DialogActions>
+          </Dialog> */}
+
+          {product.reviews && product.reviews[0] ? (
+            <div className="reviews">
+              {product.reviews &&
+                product.reviews.map((review) => (
+                  <ReviewCard key={review._id} review={review} />
+                ))}
+            </div>
+          ) : (
+            <p className="noReviews">No Reviews Yet</p>
+          )}
+          </div>
+        </Fragment>
+      )}
         </Fragment>
     )
                   }

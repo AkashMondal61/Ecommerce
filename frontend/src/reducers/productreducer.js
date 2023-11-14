@@ -17,10 +17,10 @@ import {
       case ALL_PRODUCT_SUCCESS:
         return {
           loading: false,
-          products: action.payload.products,
-          productsCount: action.payload.productscount,
-          resultPerPage: action.payload.elementperpage,
-          filteredProductsCount: action.payload.filteredProductsCount,
+          products: action.payload.Products,
+          productsCount: action.payload.productcount,
+          elementperpage: action.payload.elementperpage,
+         
         };
         case ALL_PRODUCT_FAIL: 
             return {

@@ -6,14 +6,15 @@ import {
     ALL_PRODUCT_SUCCESS,
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
-    PRODUCT_DETAILS_FAIL,
+    PRODUCT_DETAILS_FAIL,    
     CLEAR_ERRORS
 } from "../constants/productconstants"
 let isDataLoaded =false;
-export const getproduct=()=>async(dispatch)=>{
+export const getproduct=(keyword="", currentPage=1,price=[0,10000000],category)=>async(dispatch)=>{
      try{
         dispatch({type:ALL_PRODUCT_REQUEST});
-        const {data}=await axios.get("api/v1/products");
+        console.log("s");
+        const {data}=await axios.get(`api/v1/products?keyword=${keyword}&page=${currentPage}&price[gt]=${price[0]}&price[lt]=${price[1]}&category=${category}`);
         isDataLoaded=true;
         console.log(data);
         dispatch({
@@ -24,8 +25,8 @@ export const getproduct=()=>async(dispatch)=>{
      {
         console.log(error);
         dispatch({
-            type:ALL_PRODUCT_FAIL,
-            payload:error.response.data.error,
+        type:ALL_PRODUCT_FAIL,
+        payload:error.response.data.error,
             
         })
      }
@@ -34,10 +35,8 @@ export const getproduct=()=>async(dispatch)=>{
 export const getproductDetails=(id)=>async(dispatch)=>{
     try{
        dispatch({type:PRODUCT_DETAILS_REQUEST});
-    //    console.log(id);
-    //    console.log("cecec");
-       const {data}=await axios.get(`api/v1/products/${id}`);
-       console.log(data.theproduct);
+       const {data}=await axios.get(`http://localhost:3000/api/v1/product/${id}`);
+
        dispatch({
            type:PRODUCT_DETAILS_SUCCESS,
            payload:data.theproduct,
@@ -47,7 +46,7 @@ export const getproductDetails=(id)=>async(dispatch)=>{
        console.log(error);
        dispatch({
            type:PRODUCT_DETAILS_FAIL,
-           payload:error.response.data.error,
+           payload:error.response.data.error, 
            
        })
     }

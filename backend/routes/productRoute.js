@@ -3,13 +3,11 @@ const { getAllProducts ,createProduct,updateProduct,deleteProduct, getProductdet
 const { isAuthenticateUser, authorisedRoles  } = require("../middlewares/auth.js");
 const router=express.Router();
 router.route ("/products").get( getAllProducts)
-router.route ("/products/new").post(isAuthenticateUser,authorisedRoles("admin"), createProduct)
-router.route("/products/:id").put(isAuthenticateUser,authorisedRoles("admin"),updateProduct)
-router.route("/products/:id").delete(isAuthenticateUser,authorisedRoles("admin"),deleteProduct);
-router.route("/products/:id").get(getProductdetails);
+router.route ("/admin/product/new").post(isAuthenticateUser,authorisedRoles("admin"), createProduct)
+router.route("/admin/product/:id").put(isAuthenticateUser,authorisedRoles("admin"),updateProduct)
+router.route("/admin/product/:id").delete(isAuthenticateUser,authorisedRoles("admin"),deleteProduct);
+router.route("/product/:id").get(getProductdetails);
 router.route("/productsreview").put(isAuthenticateUser , createreview);
 router.route("/allreviews").get( getAllreviews);
 router.route("/deletereviews").get(isAuthenticateUser ,deleteReviews);
-
 module.exports=router;   
-    
