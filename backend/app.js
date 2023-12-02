@@ -5,9 +5,17 @@ const products=require("./routes/productRoute");
 const user=require("./routes/userout.js");
 const order=require("./routes/orderRout.js");
 const cookieparser=require("cookie-parser");
+
+
+const bodyParser=require("body-parser");
+const fileupload=require("express-fileupload");
+
 app.use(express.json());
 //to use cookie parser
 app.use( cookieparser());
+//for cloudinary
+app.use(bodyParser.urlencoded({extended:true}))
+app.use(fileupload());
 //importing routes 
 app.use("/api/v1",products);
 app.use("/api/v1",user);

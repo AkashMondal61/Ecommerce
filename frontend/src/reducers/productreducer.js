@@ -20,7 +20,7 @@ import {
           products: action.payload.Products,
           productsCount: action.payload.productcount,
           elementperpage: action.payload.elementperpage,
-         
+          filterelement:action.payload.filterproducts,
         };
         case ALL_PRODUCT_FAIL: 
             return {

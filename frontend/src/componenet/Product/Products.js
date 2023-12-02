@@ -19,14 +19,15 @@ const categories = [
 const Products=()=>{
     const dispatch=useDispatch();
     const Alert=useAlert();
-    const {products,loading,error, productsCount,elementperpage}=useSelector((state) => state.products);
+    const {products,loading,error, productsCount,elementperpage,filterelement}=useSelector((state) => state.products);
     // console.log("s");
     // const keyword=match.params.keyword;
     const {keyword}=useParams();
     // console.log(keyword);
     // console.log("si");
     // console.log(products);
-    // console.log(productsCount);
+    console.log(productsCount);
+    console.log(filterelement);
     const [currentPage, setCurrentPage] = useState(1);
     const [catagory,setCategory]=useState("");
     const [price, setPrice] = useState([0, 1000000]);
@@ -49,14 +50,14 @@ const Products=()=>{
     {loading?(<Loader/>):(
         <Fragment>
             <h2 className="productsHeading">Products</h2> 
-
+         
             <div className="products">
             {products &&
                products.map((product) => (
                 <Product key={product._id} product={product} />
                 ))}
             </div>
-            {productsCount<=elementperpage?(<hr className="line" />):( <div className="paginationBox">
+            {filterelement<=elementperpage?(<hr className="line" />):( <div className="paginationBox">
               <Pagination
                 activePage={currentPage}
                 itemsCountPerPage={elementperpage}

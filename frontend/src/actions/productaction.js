@@ -10,7 +10,7 @@ import {
     CLEAR_ERRORS
 } from "../constants/productconstants"
 let isDataLoaded =false;
-export const getproduct=(keyword="", currentPage=1,price=[0,10000000],category)=>async(dispatch)=>{
+export const getproduct=(keyword="", currentPage=1,price=[0,10000000],category="")=>async(dispatch)=>{
      try{
         dispatch({type:ALL_PRODUCT_REQUEST});
         console.log("s");

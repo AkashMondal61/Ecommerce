@@ -6,9 +6,16 @@ const user=require("../models/usermodel.js");
  const {sendEmail}=require("../utils/sendEmail");
  const crypto=require("crypto");
 const { use } = require("../routes/userout.js");
-
+const cloudinry=require("cloudinary");
 
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
+///add cloudinary
+console.log("hbjbrejh");
+const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
+    folder:"avatars",
+    width:150,
+    crop:"scale"
+})
 const {name,email,password}=req.body;
 
 const User=await user.create({
@@ -16,22 +23,12 @@ const User=await user.create({
     email,
     password,
     avatar:{
-        public_id:"this is a sample id",
-        url:"firsturl"
+        public_id:mycloud.public_id,
+        url:mycloud.secure_url
     }
 })
-
-// const token=User.getToken();
-// res.status(201).json({
-//     sucess:true,
-//     token,
-// })
-
 sendToken(User,201,res);
-
 })
-
-
 
 //login
 
