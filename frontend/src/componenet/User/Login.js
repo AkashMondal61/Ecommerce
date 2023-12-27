@@ -1,7 +1,4 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import MailOutlineIcon from "react-icons"
-import FaceIcon from "@material-ui/icons"
-import LockOpenIcon from "@material-ui/icons"
 import {Link} from "react-router-dom"
 import "./Login.css"
 import {useDispatch , useSelector} from "react-redux"
@@ -18,12 +15,6 @@ const Login = () => {
     const switcherTab = useRef(null);
     const [loginemail,setLoginemail]=useState("Email");
     const [loginpassword,setLoginpassword]=useState("Password");
-    //for register
-    // const [name,setName]=useState("Name");
-    // const [email,setEmail]=useState("Email");
-    // const [password,setPassword]=useState("Password");
-    // const[image,setImage]=useState();
-    //
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -53,7 +44,7 @@ const Login = () => {
         
     },[dispatch,alert,error,isAuthenticated])
     const switchTable = (e, tab) => {
-        if (tab === "login") {
+        if (tab === "login"){
           switcherTab.current.classList.add("shiftToNeutral");
           switcherTab.current.classList.remove("shiftToRight");
     
@@ -99,17 +90,17 @@ const Login = () => {
 
     return (
         <Fragment>
+            
             <div className="LoginSignUpContainer">
-                
+               
                 <div className="LoginSignin">
                  
-                    <div>
+                    <div className="head">
                         <div className="login_signup_toggel">
                             <p onClick={(e) => switchTable(e, "login")}>Login</p>
                             <p onClick={(e) => switchTable(e, "register")}>Register</p>
                         </div>
                         <button ref={switcherTab} ></button>
-
                     </div>
                     <form className="loginForm" ref={logintab} onSubmit={loginSubmit}>
                         {/* <MailOutlineIcon /> */}
@@ -132,7 +123,7 @@ const Login = () => {
                                 onChange={(e) => setLoginpassword(e.target.value)}
                             />
                         </div>
-                        <Link to="/password/forgot">Forget Password ?</Link>
+                        <Link to="/forgotpassword">Forget Password ?</Link>
                         <input type="submit" value="Login" className="loginBtn" />
                     </form>
                     <form

@@ -14,6 +14,7 @@ const Productdetails = () => {
     const Alert=useAlert();
     const dispatch=useDispatch();
     const {id}=useParams();
+   
     // console.log(id);
     const {product,loading,error}=useSelector(state=>state.productDetails)
     useEffect(()=>{
@@ -34,6 +35,18 @@ const options = {
   readOnly: true,
   isHalf:true,
 };
+const [quantity,setquantity]=useState(1);
+console.log(quantity);
+const increaseq=()=>{
+  if(product.stock>quantity)
+  setquantity(quantity+1);
+  else
+  return;
+}
+const decreaseq=()=>{
+  if(quantity>0) setquantity(quantity-1);
+  else return;
+}
     return(
         <Fragment>
           {loading ? (
@@ -72,9 +85,9 @@ const options = {
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button >-</button>
-                    <input readOnly type="number" value={ 1} />
-                    <button >+</button>
+                    <button onClick={decreaseq}>-</button>
+                    <input readOnly type="number" value={quantity} />
+                    <button onClick={increaseq}>+</button>
                   </div>
                   <button
                     disabled={product.stock < 1 ? true : false}

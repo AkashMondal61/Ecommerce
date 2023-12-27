@@ -10,12 +10,13 @@ const cloudinry=require("cloudinary");
 
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
 ///add cloudinary
-console.log("hbjbrejh");
+console.log(req.body.email);
 const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
     folder:"avatars",
     width:150,
     crop:"scale"
 })
+console.log("hbjbrejh");
 const {name,email,password}=req.body;
 
 const User=await user.create({
@@ -70,7 +71,7 @@ exports.logout=catchAsyncErrors(async(req,res,next)=>{(
      expires:new Date(Date.now()),
      httpOnly:true,
     }),
-    res.status(201).json({
+    res.status(202).json({
         sucess:true,
         message:"successfully log out please visit again",
     })
@@ -87,8 +88,9 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     
 
     await uSer.save({validateBeforeSave:false});
-    const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1//resetpassword/${resetToken}`;
-    const message=`Hi ${uSer.name} your password chnge link is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this 
+    // const resetPasswordUrl=`${req.protocol}://${req.get("host")}/api/v1/resetpassword/${resetToken}`;
+    const resetPasswordUrl=`${process.env.FRONTEND_URL}/resetpassword/${resetToken}`;
+    const message=`Hi ${uSer.name} your password change link is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this 
     email then please ignore it `;
     try{
   
@@ -117,15 +119,17 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
 
 //Reset Password
  exports.resetPassword=catchAsyncErrors(async(req,res,next)=>{
-    console.log(req.params.token);
+   
    const resetPassToken= crypto.createHash("sha256").update(req.params.token).digest("hex");
    const uSer=await user.findOne({resetPasswordToken:resetPassToken ,resetPasswordExpire:{$gt:Date.now()},});
+   console.log(req.body.password); 
    if(!uSer)
    {
-     return next(new Errorhandeler("Please log in first or password token has expired",202))
+     return next(new Errorhandeler("Password token has expired",402))
    }
-   if(req.body.password!=req.body.confirmpassword)
-   return next(new Errorhandeler("password does not match",404));
+   if(req.body.password!=req.body.confirmpassword){
+   return next(new Errorhandeler("Password does not match",404));
+   }
    uSer.password=req.body.password;
    uSer.resetPasswordExpire=undefined;
    uSer.resetPasswordToken=undefined;
@@ -139,7 +143,7 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     const uSer= await user.findById(req.user.id);
     res.status(202).json({
         sucess:true,
-        message:uSer,
+       uSer,
     })
  })
 
@@ -171,6 +175,21 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
         name:req.body.name,
         email:req.body.email,
     }
+    //delete the previous image from cloudinary add newone
+    if(req.user.avatar!==""){
+    const userr=await user.findById(req.user.id);
+    const imageid=userr.avatar.public_id;
+    await cloudinry.v2.uploader.destroy(imageid);
+    const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
+        folder:"avatars",
+        width:150,
+        crop:"scale"
+    })
+    newUserData.avatar={
+            public_id:mycloud.public_id,
+            url:mycloud.secure_url
+        }
+}
     const uSer=await user.findByIdAndUpdate(req.user.id,newUserData,{
         new:true,
         runValidators:true,
@@ -192,7 +211,6 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
         uSers
     })
  })
-
 
 // Get aone user details 
 

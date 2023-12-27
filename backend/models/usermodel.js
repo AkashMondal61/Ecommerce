@@ -67,7 +67,7 @@ useSchema.methods.getResetPasswordToken= function(){
 const resetToken=crypto.randomBytes(20).toString("hex");
  // hashing and reset and update in schema
  this.resetPasswordToken=crypto.createHash("sha256").update(resetToken).digest("hex"); 
- this.resetPasswordExpire= Date.now()+15*60*1000;
+ this.resetPasswordExpire= Date.now()+120*60*1000;
  return resetToken;
 
 }

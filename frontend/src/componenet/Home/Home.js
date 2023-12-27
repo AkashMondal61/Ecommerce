@@ -33,7 +33,7 @@ const Home = () => {
         <a href="#container">
           <button>Scroll</button>
         </a>
-      </div>
+        </div>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
         {/* {products.length > 0 ? (

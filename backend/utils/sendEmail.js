@@ -1,7 +1,9 @@
 const nodemailer=require("nodemailer");
 exports.sendEmail=async(options)=>{
+    console.log(options.mail)
+    console.log("vf")
     const transporter=  nodemailer.createTransport({
-        host:process.env.SMTP_HOST,
+        host:process.env.SMPT_HOST,
         port:process.env.SMTP_PORT,
         service:process.env.SMPT_SERVICE,
         auth:{
@@ -14,7 +16,6 @@ exports.sendEmail=async(options)=>{
         to:options.email,
         subject:options.subject,
         text:options.message,
-
     }
     await transporter.sendMail(mailoption); 
 };

@@ -5,6 +5,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg");
+   
     background-color: rgb(231, 231, 231);
     position: fixed;
     top: 0%;
@@ -12,17 +14,21 @@
   }
   .LoginSignin {
     position: absolute;
-    background-color: white;
-
+    background-color: rgba(192, 189, 189, 0.219);
+    backdrop-filter: blur(2px);
     width: 30vw;
     height: 65vh;
     box-sizing: border-box;
     overflow: hidden;
+    border-radius: 10px;
   }
   .login_signup_toggel {
     display: flex;
     height: 5vmax;
-
+  }
+  .head{
+    position: relative;
+    border-bottom: 1px solid rgba(2, 13, 21,.322);
   }
   .login_signup_toggel > p {
     color: rgba(0, 0, 0, 0.678);
@@ -34,12 +40,15 @@
     align-items:center;
     justify-content: center;
     width: 100%;
+    
   }
   .login_signup_toggel > p:hover {
-    color:rgb(71, 255, 108);
+    color:rgb(49, 158, 236);
   }
   .LoginSignin > div > button {
-    background-color: rgb(71, 255, 108);
+    position: absolute;
+    bottom: 0;
+    background-color: rgb(71, 175, 255);
     height: 3px;
     width: 50%;
     border: none;
@@ -126,9 +135,15 @@
 .shiftToRight {
   transform: translateX(100%);
 }
+#registerImage{
+  display: flex;
+  /* flex-direction: column; */
+  gap: 30px;
+}
 #registerImage > img {
-    width: 3vmax;
-    border-radius: 100%;
+    width: 3.5vmax;
+    height: 3.5vmax;
+    border-radius: 50%;
   }
   #registerImage > input {
     display: flex;
@@ -148,8 +163,67 @@
     color: rgba(0, 0, 0, 0.623);
     background-color: rgb(255, 255, 255);
   }
-  
   #registerImage > input::file-selector-button:hover {
     background-color: rgb(235, 235, 235);
   }
-  
+
+  @media screen and ( max-width: 850px){
+    .LoginSignin {
+      width:35vh;
+      height:48vh;
+    }
+    .login_signup_toggel {
+      height: 8vh;
+    }
+    .login_signup_toggel >p {
+      font-size: large;
+    }
+    .loginForm > div > input,
+    .signUpForm > div > input {
+    height: 30px;
+    padding: 2vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.267);
+    border-radius: 4px;
+    font: 400 1.2vmax cursive;
+    outline: none;
+  }
+  .loginBtn,
+  .signUpBtn {
+  height: 30px;
+  border: none;
+  background-color: tomato;
+  color: white;
+  font: 300 0.9vmax "Roboto";
+  width: 100%;
+  padding: 1.8vmax;
+  cursor: pointer;
+  transition: all 0.5s;
+  border-radius: 4px;
+  outline: none;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.219);
+}
+.loginForm a {
+  font-size: large;
+}
+.loginBtn ,
+.signUpBtn {
+  font-size: large;
+  height: 45px;
+}
+.signUpForm > div > input{
+  height: 40px;
+}
+#registerImage{
+  display: flex;
+  /* flex-direction: column; */
+  gap: 20px;
+}
+#registerImage > img {
+  width: 4vmax;
+  height: 4vmax;
+  border-radius: 60%;
+}
+}

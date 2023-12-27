@@ -5,7 +5,7 @@ updatePassword, updateProfile, getAllUser, getOneUser, updateRole, Deleteuser } 
 const { isAuthenticateUser , authorisedRoles  } = require("../middlewares/auth.js");
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
-router.route("/logout").post(logout);
+router.route("/logout").get(logout);
 router.route("/forgotpassword").post(forgotpassword);
 router.route("/resetpassword/:token").put(resetPassword);
 router.route("/updatepassword").put(isAuthenticateUser, updatePassword);

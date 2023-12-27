@@ -27,8 +27,13 @@ const errormiddleware=(err,req,res,next)=>{
           const message=`Token has expired please relogin `;
           err=new ErrorHandeler(message,400) ;
       }
-
-    res.status(err.statusCode).json({
+      if(err.code===206)
+      {
+        console.log("woek")
+          const message=`Please log in first`;
+          err=new ErrorHandeler(message,400) ;
+      }
+     res.status(err.statusCode).json({
         success:false,
         error:err.message,
     }); 

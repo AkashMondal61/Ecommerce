@@ -7,11 +7,13 @@ exports.isAuthenticateUser= catchAsyncErrors(async(req,res,next)=>{
   // console.log(token);
   if(!token)
   {
-    return next(new ErrorHandeler("Please log in first",203 ));
+    return next(new ErrorHandeler("Please log in first",404 ));
   }
+  else{
   const decodeData=jwt.verify(token,process.env.JWT_SECRETKEY );
   req.user=await User.findById(decodeData.id); //req.user contains all information  about  the user
   next();
+  }
 })
 
 exports.authorisedRoles=(...roles)=>{
