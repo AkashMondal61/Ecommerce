@@ -33,6 +33,7 @@ const options = {
   profileIcon:true,
   ProfileIconElement:AiFillProfile,
   searchIcon:true,
+
   cartIcon:true,
   SearchIconElement:CiSearch,
   CartIconElement:GiShoppingCart,

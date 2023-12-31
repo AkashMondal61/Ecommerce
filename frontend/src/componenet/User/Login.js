@@ -23,7 +23,8 @@ const Login = () => {
       const { name, email, password } = user;
       const [avatar, setAvatar] = useState("../../images/Profile.png");
       const [avatarPreview, setAvatarPreview] = useState("../../images/Profile.png");
-
+    
+     //  const redirect=location.search?location.search.split("=")[1] :"/account" ;
     const loginSubmit=(e)=>{
         console.log("submitted");
         e.preventDefault();
@@ -34,8 +35,8 @@ const Login = () => {
      useEffect(()=>{
         if(error)
         {
-            alert.error(error);
-            dispatch(clearerror());
+            // alert.error(error);
+            // dispatch(clearerror());
         }
         if( isAuthenticated)
         {

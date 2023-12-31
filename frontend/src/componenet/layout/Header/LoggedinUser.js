@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState ,useRef} from "react";
 import "./loggidin.css";
 import dp from "../../../images/me.jpg";
 import { Person } from "@material-ui/icons";
-import { Dashboard } from "@material-ui/icons";
+import { Dashboard ,ShoppingCart} from "@material-ui/icons";
 import { ExitToApp } from "@material-ui/icons";
 import { ListAlt } from "@material-ui/icons";
 import { useNavigate } from "react-router-dom";
@@ -15,7 +15,7 @@ export const LoggedinUser=({user})=>{
     const [open, setOpen] = useState(false);
     const dispatch=useDispatch();
     let menuRef = useRef();
-  
+    
     useEffect(() => {
       let handler = (e)=>{
         if(!menuRef.current.contains(e.target)){
@@ -35,6 +35,7 @@ export const LoggedinUser=({user})=>{
     const option =[
       {icon:<ListAlt/>,name:"Orders",func:orders},
       {icon:<Person/>,name:"Profile",func:account},
+      {icon:<ShoppingCart/>,name:"Cart",func:cart},
       {icon:<ExitToApp/>,name:"Log out",func:logouts},
     ]
     if(user.role==="admin")
@@ -47,6 +48,9 @@ export const LoggedinUser=({user})=>{
     function account(){
       navigate("/account")
     }
+    function cart(){
+      navigate("/Cart")
+     }
     function logouts(){
       dispatch(logout());
     

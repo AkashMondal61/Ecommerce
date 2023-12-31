@@ -9,6 +9,7 @@ import ReactStars from "react-rating-stars-component"
 import Loader from "../layout/Loader/Loader"
 import ReviewCard from "./Reviewcard";
 import { useAlert } from "react-alert";
+import { addItemsToCart } from "../../actions/cartaction";
 
 const Productdetails = () => {
     const Alert=useAlert();
@@ -16,6 +17,7 @@ const Productdetails = () => {
     const {id}=useParams();
    
     // console.log(id);
+    const {isAuthenticated}=useSelector(state=>state.userDetails)
     const {product,loading,error}=useSelector(state=>state.productDetails)
     useEffect(()=>{
       if(error)
@@ -47,6 +49,16 @@ const decreaseq=()=>{
   if(quantity>0) setquantity(quantity-1);
   else return;
 }
+const addtocart=()=>{
+  if(isAuthenticated){
+  dispatch(addItemsToCart(id,quantity));
+  Alert.success("item added to cart");
+  }
+  else
+      {
+        Alert.error("pleae log in first");
+      }
+}
     return(
         <Fragment>
           {loading ? (
@@ -72,7 +84,7 @@ const decreaseq=()=>{
            
               <div className="detailsBlock-1">
                 <h2>{product.name}</h2>
-                <p>Product # {product._id}</p>
+                <p>Product # {product.id}</p>
               </div>
               <div className="detailsBlock-2">
                 { <ReactStars {...options} /> }
@@ -91,7 +103,7 @@ const decreaseq=()=>{
                   </div>
                   <button
                     disabled={product.stock < 1 ? true : false}
-                     >
+                     onClick={addtocart} >
                     Add to Cart
                   </button>
                 </div>
@@ -150,7 +162,7 @@ const decreaseq=()=>{
             <div className="reviews">
               {product.reviews &&
                 product.reviews.map((review) => (
-                  <ReviewCard key={review._id} review={review} />
+                  <ReviewCard key={review.id} review={review} />
                 ))}
             </div>
           ) : (
