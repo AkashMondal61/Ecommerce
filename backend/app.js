@@ -5,7 +5,13 @@ const products=require("./routes/productRoute");
 const user=require("./routes/userout.js");
 const order=require("./routes/orderRout.js");
 const cookieparser=require("cookie-parser");
-
+const cors = require('cors');
+const corsOptions ={
+    origin:'http://localhost:3000', 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions));
 
 const bodyParser=require("body-parser");
 const fileupload=require("express-fileupload");

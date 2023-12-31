@@ -122,11 +122,13 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
    
    const resetPassToken= crypto.createHash("sha256").update(req.params.token).digest("hex");
    const uSer=await user.findOne({resetPasswordToken:resetPassToken ,resetPasswordExpire:{$gt:Date.now()},});
-   console.log(req.body.password); 
+   console.log(req.body);
    if(!uSer)
    {
+    console.log(req.body.password);
      return next(new Errorhandeler("Password token has expired",402))
    }
+//    console.log(req.body.password);
    if(req.body.password!=req.body.confirmpassword){
    return next(new Errorhandeler("Password does not match",404));
    }

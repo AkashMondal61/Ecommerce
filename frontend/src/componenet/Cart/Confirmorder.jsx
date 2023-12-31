@@ -31,7 +31,7 @@ const proceedToPayment = () => {
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
 
-   Navigate("/process/payment");
+   Navigate("/order/payment");
   };
 return(
     <>

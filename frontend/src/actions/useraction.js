@@ -177,15 +177,16 @@ export const resetPassword = (token,datas) => async (dispatch) => {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const config = { headers: { "Content-Type": "application/json" } };
-    
-    const { data } = await axios.put(`/api/v1/resetpassword/${token}`, datas, config);
+ 
+    const { data } = await axios.put(`http://localhost:4000/api/v1/resetpassword/${token}`, datas, config);
     console.log(data);
     console.log(token)
-    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.success });
+    dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.sucess });
   } catch (error) {
+    console.log(error);
     dispatch({
       type: RESET_PASSWORD_FAIL,
-      payload: error.response.data.message,
+      payload: error.response.data.error,
     });
   }
 };

@@ -1,0 +1,6 @@
+.pay{
+    min-height: 77vmax;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

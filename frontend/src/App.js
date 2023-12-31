@@ -28,6 +28,7 @@ import { Resetpassword } from './componenet/User/Resetpassword.jsx';
 import { Shipping } from './componenet/Cart/Shipping';
 import { Cart } from './componenet/Cart/Cart';
 import { Confirmorder } from './componenet/Cart/Confirmorder.jsx';
+import { Payment } from './componenet/Cart/Payment.jsx';
 const App = () => {
   const {isAuthenticated,user}=useSelector((state)=>state.userDetails)
 
@@ -51,6 +52,7 @@ const App = () => {
 { isAuthenticated && <Route exact path="/updatepassword" element={<Updatepassword/>}/>}
 { isAuthenticated && <Route exact path="/shipping" element={<Shipping/>}/>}
 { isAuthenticated && <Route exact path="/order/confirm" element={<Confirmorder/>}/>}
+{ isAuthenticated && <Route exact path="/order/payment" element={<Payment/>}/>}
 <Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
 <Route exact path="/resetpassword/:token" element={<Resetpassword/>}/>
 <Route exact path="/cart" element={<Cart/>}/>

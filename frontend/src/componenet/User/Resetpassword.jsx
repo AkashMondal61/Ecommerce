@@ -15,7 +15,7 @@ export const Resetpassword = () => {
     const alert = useAlert();
     let Navigate = useNavigate();
     const {token}=useParams();
-    const [newpassword,setnewpassword]=useState("Password");
+    const [password,setpassword]=useState("Password");
     const [confirmpassword,setconfirmpassword]=useState("Password");
     const { error, success, loading } = useSelector(
         (state) => state.forgotPassword
@@ -25,8 +25,8 @@ export const Resetpassword = () => {
 
         const myForm = new FormData();
     
-        myForm.set("password", newpassword);
-        myForm.set("confirmPassword", confirmpassword);
+        myForm.set("password", password);
+        myForm.set("confirmpassword", confirmpassword);
     
         dispatch(resetPassword(token, myForm));
     }
@@ -39,7 +39,6 @@ export const Resetpassword = () => {
     
         if (success) {
           alert.success("Password Updated Successfully");
-    
           Navigate("/login");
         }
       }, [dispatch, error, alert, Navigate, success]);
@@ -59,9 +58,9 @@ export const Resetpassword = () => {
                                 placeholder="Password"
                                 required
                                 name="newpassword"
-                                value={newpassword}
+                                value={password}
                                 // onChange={registerDataChange}
-                                onChange={(e) => setnewpassword(e.target.value)}
+                                onChange={(e) => setpassword(e.target.value)}
                             />
                         </div>
                         <div className="signUpPassword">
