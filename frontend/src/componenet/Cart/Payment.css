@@ -1,6 +1,75 @@
-.pay{
-    min-height: 77vmax;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.container{
+display: flex;
+align-items: center;
+text-align: center;
+min-height: 70%;
 }
+  
+.shippingForm {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    padding: 2vmax;
+    justify-content: space-evenly;
+    height: 80%;
+    transition: all 0.5s;
+    gap:5px;
+    margin: 10% 10%;
+    width: 60%;
+  }
+  
+  .shippingForm > div {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .shippingForm > div > input,
+  .shippingForm > div > select {
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    box-sizing: border-box;
+    
+    border-radius: 4px;
+    font: 300 0.9vmax cursive;
+    outline: none;
+  }
+  .shippingForm > button{
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.5s;
+    font: 400 2vmax "Roboto";
+    background-color: tomato;
+    border: none;
+    border-radius: 9x;
+
+  }
+  @media screen and (max-width:600px)
+  {
+    .shippingForm {
+      width: 80%;
+      gap:2px;
+    }
+    .container{
+      height: 270px;
+    }
+    .shippingForm > div > input,
+    .shippingForm > div > select {
+      padding: 2vmax 5vmax;
+      padding-right: 1vmax;
+      width: 100%;
+      box-sizing: border-box;
+      border-radius: 4px;
+      font: 300 1.9vmax cursive;
+      outline: none;
+    }
+    .shippingForm > button{
+      padding: 2vmax 5vmax;
+      font: 400 2.5vmax;
+    }
+  }

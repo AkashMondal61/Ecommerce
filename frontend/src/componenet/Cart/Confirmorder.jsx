@@ -6,23 +6,23 @@ import { Typography } from "@material-ui/core";
 import "./Checkoutsteps"
 import { Checkoutsteps } from "./Checkoutsteps";
 export const Confirmorder = () => {
-    const { shippingInfo, cartItems } = useSelector((state) => state.cart);
+    const { shippinginfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.userDetails);
     const Navigate=useNavigate();
-    // const subtotal = cartItems.reduce(
-    //     (acc, item) => acc + item.quantity * item.price,
-    //     0
-    //   );
-    const subtotal =10;
+    const subtotal = cartItems.reduce(
+        (acc, item) => acc + item.quantity * item.price,
+        0
+      );
+    // const subtotal =10;
       const shippingCharges = subtotal > 1000 ? 0 : 200;
     
       const tax = subtotal * 0.18;
     
       const totalPrice = subtotal + tax + shippingCharges;
     
-      const address = `${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.state}, ${shippingInfo.pinCode}, ${shippingInfo.country}`;
-const proceedToPayment = () => {
-    const data = {
+      const address = `${shippinginfo.adress}, ${shippinginfo.city}, ${shippinginfo.state}, ${shippinginfo.pin}, ${shippinginfo.country}`;
+      const proceedToPayment = () => {
+      const data = {
       subtotal,
       shippingCharges,
       tax,
@@ -47,7 +47,7 @@ return(
               </div>
               <div>
                 <p>Phone:</p>
-                <span>{shippingInfo.phoneNo}</span>
+                <span>{shippinginfo.phone}</span>
               </div>
               <div>
                 <p>Address:</p>
@@ -62,7 +62,7 @@ return(
                 cartItems.map((item) => (
                   <div key={item.product}>
                     <img src={item.image} alt="Product" />
-                    <Link to={`/product/${item.product}`}>
+                    <Link to={`/products/${item.product}`}>
                       {item.name}
                     </Link>{" "}
                     <span>

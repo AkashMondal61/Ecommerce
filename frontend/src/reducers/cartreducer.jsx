@@ -27,7 +27,7 @@ switch(action.type)
         case SAVE_SHIPPING_INFO:
           return{
             ...state,
-            shippingInfo:action.payload,
+            shippinginfo:action.payload,
           }
     default:
       return state;

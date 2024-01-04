@@ -1,0 +1,93 @@
+.containers{
+    margin:10%;
+    border: 1px solid black;
+}
+.up{
+    display: flex;
+justify-content: space-around;
+padding: 20px;
+}
+.left{
+    width: 45%;
+    
+}
+.order{
+    font: 400 2.5vmax "Roboto";
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding: 15px;
+    color:#575757
+}
+.greene{
+    text-decoration:green;
+}
+.rede{
+    color:red;
+}
+.down{
+    padding: 0 6%;
+}
+.right{
+
+width: 40%;
+}
+.heading{
+    background-color: #a59e9e;
+    padding: 10px;
+    color:white;
+    font: 400 2vmax "Roboto";
+}
+.confirmshippingAreaBox,
+.confirmCartItemsContainer {
+  margin: 2vmax;
+}
+.confirmCartItemsContainer > div > span
+{
+    font: 400 1.5vmax "Roboto";
+   
+}
+.confirmCartItemsContainer > div > img{
+height: 50px;
+width: 50px;
+}
+.confirmCartItemsContainer > div
+{
+    font: 400 1.5vmax "Roboto";
+   
+}
+.confirmshippingAreaBox > div {
+  display: flex;
+  margin: 1vmax 0;
+}
+.confirmshippingAreaBox > div > p {
+    font: 400 1.5vmax "Roboto";
+    color: black;
+  }
+  .confirmshippingAreaBox > div > span { 
+    margin: 0 1vmax;
+    font: 100 1.5vmax "Roboto";
+    color: #575757;
+  }
+  @media screen and (max-width: 600px) {
+    .up{
+        flex-direction: column;
+    }
+    .right{
+        width: 90%;
+    }
+    .left{
+        width: 90%;
+    }
+    .confirmshippingAreaBox > div {
+      display: flex;
+      margin: 6vw 0;
+    }
+  
+    .confirmshippingAreaBox > div > p {
+      font: 400 4vw "Roboto";
+    }
+    .confirmshippingAreaBox > div > span {
+      font: 100 4vw "Roboto";
+    }
+}

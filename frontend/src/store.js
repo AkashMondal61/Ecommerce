@@ -4,20 +4,25 @@
 import { productsReducer , productDetailsReducer} from "./reducers/productreducer";
 import { forgotPasswordReducer, profileReducer, userReducer } from "./reducers/usereducer";
 import { addcartreducer } from "./reducers/cartreducer";
+import { OrderReducer, myOrderReducer, newOrderReducer } from "./reducers/Orderreducer";
  const reducer=combineReducers({
- products:productsReducer,
+ products:productsReducer, 
  productDetails:productDetailsReducer ,
  userDetails:userReducer,
  profile:profileReducer,
  forgotPassword:forgotPasswordReducer,
  cart:addcartreducer,
- 
- })
+ newOrder:newOrderReducer,
+ myOrders:myOrderReducer,
+ orderDetails:OrderReducer, })
  let initialState={
     cart: {
         cartItems: localStorage.getItem("cartItems")
           ? JSON.parse(localStorage.getItem("cartItems"))
           : [],
+          shippinginfo: localStorage.getItem("shippingInfo")
+          ? JSON.parse(localStorage.getItem("shippingInfo"))
+          : {},
     }
  };
  const middleware=[thunk];

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect, useState ,useRef} from "react";
 import "./loggidin.css";
-import dp from "../../../images/me.jpg";
 import { Person } from "@material-ui/icons";
 import { Dashboard ,ShoppingCart} from "@material-ui/icons";
 import { ExitToApp } from "@material-ui/icons";
@@ -9,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../../../actions/useraction"
 import { useDispatch  } from "react-redux";
 import { useAlert } from "react-alert";
+
 export const LoggedinUser=({user})=>{
   const navigate=useNavigate();
   const alert=useAlert();
@@ -43,7 +43,7 @@ export const LoggedinUser=({user})=>{
       option.unshift({icon:<Dashboard/>,name:"Dadhboard",func:dashboard})
     }
     function orders(){
-     navigate("/orders")
+     navigate("/myorders")
     }
     function account(){
       navigate("/account")

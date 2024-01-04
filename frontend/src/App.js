@@ -29,6 +29,9 @@ import { Shipping } from './componenet/Cart/Shipping';
 import { Cart } from './componenet/Cart/Cart';
 import { Confirmorder } from './componenet/Cart/Confirmorder.jsx';
 import { Payment } from './componenet/Cart/Payment.jsx';
+import { Myorder } from './Order/Myorder.js';
+import { OrderDetails } from './Order/OrderDetails.js';
+
 const App = () => {
   const {isAuthenticated,user}=useSelector((state)=>state.userDetails)
 
@@ -53,13 +56,15 @@ const App = () => {
 { isAuthenticated && <Route exact path="/shipping" element={<Shipping/>}/>}
 { isAuthenticated && <Route exact path="/order/confirm" element={<Confirmorder/>}/>}
 { isAuthenticated && <Route exact path="/order/payment" element={<Payment/>}/>}
+{ isAuthenticated && <Route exact path="/myorders" element={<Myorder/>}/>}
+{ isAuthenticated && <Route exact path="/order/:id" element={<OrderDetails/>}/>}
 <Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
 <Route exact path="/resetpassword/:token" element={<Resetpassword/>}/>
 <Route exact path="/cart" element={<Cart/>}/>
     <Route  exact path="/logout" element={<Home/>}/>
     </Routes>
     <Footer/>
-   </BrowserRouter>
+   </BrowserRouter> 
    </> 
   ); 
 }

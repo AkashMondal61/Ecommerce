@@ -19,24 +19,24 @@ import { Checkoutsteps } from "./Checkoutsteps";
   const dispatch = useDispatch();
   const Navigate=useNavigate();
   const alert = useAlert();
-  const { shippingInfo } = useSelector((state) => state.cart);
+  const { shippinginfo } = useSelector((state) => state.cart);
 
-  const [address, setAddress] = useState("address");
+  const [adress, setAdress] = useState("adress");
   const [city, setCity] = useState("city");
   const [state, setState] = useState("state");
   const [country, setCountry] = useState("country");
-  const [pinCode, setPinCode] = useState("pinCode");
-  const [phoneNo, setPhoneNo] = useState("phoneNo");
+  const [pin, setPin] = useState("pinCode");
+  const [phone, setPhone] = useState("phoneNo");
 
   const shippingSubmit = (e) => {
     e.preventDefault();
 
-    if (phoneNo.length < 10 || phoneNo.length > 10) {
+    if (phone.length < 10 || phone.length > 10) {
       alert.error("Phone Number should be 10 digits Long");
       return;
     }
     dispatch(
-      saveshippinfinfo({ address, city, state, country, pinCode, phoneNo })
+      saveshippinfinfo({ adress, city, state, country, pin, phone })
     );
     Navigate("/order/confirm");
   };
@@ -59,10 +59,10 @@ import { Checkoutsteps } from "./Checkoutsteps";
               <HomeIcon />
               <input
                 type="text"
-                placeholder="Address"
+                placeholder="Adress"
                 required
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                value={adress}
+                onChange={(e) => setAdress(e.target.value)}
               />
             </div>
 
@@ -83,8 +83,8 @@ import { Checkoutsteps } from "./Checkoutsteps";
                 type="number"
                 placeholder="Pin Code"
                 required
-                value={pinCode}
-                onChange={(e) => setPinCode(e.target.value)}
+                value={pin}
+                onChange={(e) => setPin(e.target.value)}
               />
             </div>
 
@@ -94,8 +94,8 @@ import { Checkoutsteps } from "./Checkoutsteps";
                 type="number"
                 placeholder="Phone Number"
                 required
-                value={phoneNo}
-                onChange={(e) => setPhoneNo(e.target.value)}
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 size="10"
               />
             </div>
