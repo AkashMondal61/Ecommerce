@@ -25,7 +25,6 @@ export const Profile = () => {
         }
         
     }, [Alert, isAuthenticated, dispatch,Navigate])
-
     return (
         <>
             {loading ? ( 
@@ -59,7 +58,7 @@ export const Profile = () => {
                             </div> */}
 
                             <div>
-                                <Link to="/orders">My Orders</Link>
+                                <Link to="/myorders">My Orders</Link>
                                 <Link to="/updatepassword">Change Password</Link>
                             </div>
                         </div>

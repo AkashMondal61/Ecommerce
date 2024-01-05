@@ -53,7 +53,8 @@ export const LoggedinUser=({user})=>{
      }
     function logouts(){
       dispatch(logout());
-    
+      alert.success("Logged out successfully")
+      navigate("/");
     } 
     function dashboard(){
 

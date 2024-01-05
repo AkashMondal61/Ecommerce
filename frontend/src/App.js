@@ -31,6 +31,7 @@ import { Confirmorder } from './componenet/Cart/Confirmorder.jsx';
 import { Payment } from './componenet/Cart/Payment.jsx';
 import { Myorder } from './Order/Myorder.js';
 import { OrderDetails } from './Order/OrderDetails.js';
+import { Footer1 } from './componenet/layout/Footer/Footer1.js';
 
 const App = () => {
   const {isAuthenticated,user}=useSelector((state)=>state.userDetails)
@@ -51,19 +52,20 @@ const App = () => {
     <Route  exact path="/Search" element={<Search/>}/>
     <Route  exact path="/login" element={<Login/>}/>
     <Route exact path="/account" element={<Profile/>}/>
-{ isAuthenticated && <Route exact path="/me/updateprofile" element={<Updateprofile/>}/>}
-{ isAuthenticated && <Route exact path="/updatepassword" element={<Updatepassword/>}/>}
-{ isAuthenticated && <Route exact path="/shipping" element={<Shipping/>}/>}
-{ isAuthenticated && <Route exact path="/order/confirm" element={<Confirmorder/>}/>}
-{ isAuthenticated && <Route exact path="/order/payment" element={<Payment/>}/>}
-{ isAuthenticated && <Route exact path="/myorders" element={<Myorder/>}/>}
-{ isAuthenticated && <Route exact path="/order/:id" element={<OrderDetails/>}/>}
-<Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
-<Route exact path="/resetpassword/:token" element={<Resetpassword/>}/>
-<Route exact path="/cart" element={<Cart/>}/>
-    <Route  exact path="/logout" element={<Home/>}/>
+    { isAuthenticated && <Route exact path="/me/updateprofile" element={<Updateprofile/>}/>}
+    { isAuthenticated && <Route exact path="/updatepassword" element={<Updatepassword/>}/>}
+    { isAuthenticated && <Route exact path="/shipping" element={<Shipping/>}/>}
+    { isAuthenticated && <Route exact path="/order/confirm" element={<Confirmorder/>}/>}
+    { isAuthenticated && <Route exact path="/order/payment" element={<Payment/>}/>}
+    { isAuthenticated && <Route exact path="/myorders" element={<Myorder/>}/>}
+    { isAuthenticated && <Route exact path="/order/:id" element={<OrderDetails/>}/>}
+    <Route exact path="/forgotpassword" element={<ForgotPassword/>}/>
+    <Route exact path="/resetpassword/:token" element={<Resetpassword/>}/>
+    <Route exact path="/cart" element={<Cart/>}/>
+        <Route  exact path="/logout" element={<Home/>}/>
     </Routes>
-    <Footer/>
+    <Footer1/>
+    {/* <Footer/> */}
    </BrowserRouter> 
    </> 
   ); 

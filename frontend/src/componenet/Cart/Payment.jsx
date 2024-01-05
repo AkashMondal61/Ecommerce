@@ -44,7 +44,7 @@ export const Payment = () => {
     return (
         <>
             <Checkoutsteps activeStep={3} />
-            <div className="container">
+            <div className="containerr">
             <h1>Comming Soon</h1>
             <form
                 className="shippingForm"

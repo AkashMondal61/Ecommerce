@@ -64,10 +64,10 @@
   .container {
     display: flex;
     margin: 2vmax auto;
-    width: 80vw;
+    /* width: 80vw; */
     flex-wrap: wrap;
     justify-content: center;
-    max-width: 100%;
+    /* max-width: 100vh; */
   }
   
   .productCard {

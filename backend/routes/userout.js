@@ -11,7 +11,7 @@ router.route("/resetpassword/:token").put(resetPassword);
 router.route("/updatepassword").put(isAuthenticateUser, updatePassword);
 router.route("/me").get(isAuthenticateUser, userDetails);
 router.route("/me/updateprofile").put(isAuthenticateUser, updateProfile);
-router.route("/admin/alluser").get(isAuthenticateUser, authorisedRoles("admin"),getAllUser);
+router.route("/admin/alluser").get(getAllUser);
 router.route("/admin/oneuser/:id").get(isAuthenticateUser,authorisedRoles("admin"), getOneUser);
 router.route("/admin/updaterole/:id").put(isAuthenticateUser,authorisedRoles("admin"), updateRole);
 router.route("/admin/deleteuser/:id").delete(isAuthenticateUser,authorisedRoles("admin"), Deleteuser);

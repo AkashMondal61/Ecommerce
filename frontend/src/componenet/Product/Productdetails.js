@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./Productdetails.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearerror, getproductDetails } from "../../actions/productaction";
+import { clearerror, getproductDetails, newReview } from "../../actions/productaction";
 import { Params } from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component"
@@ -10,15 +10,26 @@ import Loader from "../layout/Loader/Loader"
 import ReviewCard from "./Reviewcard";
 import { useAlert } from "react-alert";
 import { addItemsToCart } from "../../actions/cartaction";
-
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Button,
+} from "@material-ui/core";
+import { Rating } from "@mui/material";
+import { alluser } from "../../actions/useraction";
 const Productdetails = () => {
     const Alert=useAlert();
     const dispatch=useDispatch();
     const {id}=useParams();
-   
-    // console.log(id);
+    const [open, setOpen] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState("");
     const {isAuthenticated}=useSelector(state=>state.userDetails)
     const {product,loading,error}=useSelector(state=>state.productDetails)
+    const {loading:load,users}=useSelector((state)=>state.allUser)
+ 
     useEffect(()=>{
       if(error)
       {
@@ -26,7 +37,7 @@ const Productdetails = () => {
         dispatch(clearerror( ));
       }
         dispatch(getproductDetails(id));
-        
+        dispatch(alluser());
     },[dispatch,id,error,Alert])
     // console.log(product);
 const options = {
@@ -59,9 +70,29 @@ const addtocart=()=>{
         Alert.error("pleae log in first");
       }
 }
+
+const submitReviewToggle = () => {
+  open ? setOpen(false) : setOpen(true);
+};
+const reviewSubmitHandler = () => {
+  if(!isAuthenticated)
+  {
+    Alert.error("Please log in to submit review");
+    setOpen(false) 
+    return; 
+  }
+    const datas={
+      "rating":rating,
+      "comment": comment,
+      "productId": id
+    }
+  dispatch(newReview(datas));
+  
+  setOpen(false);
+};
     return(
         <Fragment>
-          {loading ? (
+          {loading || load ? (
         <Loader />
       ) : (
           <Fragment>
@@ -120,19 +151,19 @@ const addtocart=()=>{
                 Description : <p>{product.description}</p>
               </div>
 
-              <button className="submitReview">
+              <button onClick={submitReviewToggle} className="submitReview">
                 Submit Review
               </button>
             </div>
           </div>
           <h3 className="reviewsHeading">REVIEWS</h3>
           <div className="review">
-          {/* <Dialog
+          <Dialog
             aria-labelledby="simple-dialog-title"
             open={open}
             onClose={submitReviewToggle}
-          > */}
-            {/* <DialogTitle>Submit Review</DialogTitle>
+          >
+            <DialogTitle>Submit Review</DialogTitle>
             <DialogContent className="submitDialog">
               <Rating
                 onChange={(e) => setRating(e.target.value)}
@@ -156,13 +187,13 @@ const addtocart=()=>{
                 Submit
               </Button>
             </DialogActions>
-          </Dialog> */}
+          </Dialog>
 
           {product.reviews && product.reviews[0] ? (
             <div className="reviews">
               {product.reviews &&
                 product.reviews.map((review) => (
-                  <ReviewCard key={review.id} review={review} />
+                  <ReviewCard key={review.id} review={review} users={users} />
                 ))}
             </div>
           ) : (

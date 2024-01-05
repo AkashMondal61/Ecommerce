@@ -20,6 +20,7 @@ const Home = () => {
            dispatch(clearerror());
         }
         dispatch(getproduct());
+      
   }, [dispatch,error,alert]);
 
   return (
