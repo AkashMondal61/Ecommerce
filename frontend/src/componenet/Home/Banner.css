@@ -1,0 +1,59 @@
+.hero {
+    position: relative;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.contents {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    z-index: 3; /* Above the overlay */
+    color:rgb(241, 164, 69)
+}
+.contents > p {
+    font: 300 1.4vmax "Lucida Sans";
+  }
+  
+  .contents > a > button {
+    margin-bottom: 5vmax;
+    cursor: pointer;
+    background:transparent; 
+    color: black; 
+    border: 2px solid rgb(241, 164, 69);
+    padding: 1vmax;
+    color:rgb(241, 164, 69);
+    border-radius: 10%;
+    transition: all 0.5s;
+    width: 9vmax;
+    font: 500 2vmax "Roboto";
+  }
+  .contents > a > button:hover {
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+  }
+.back {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 1;
+}
+.contents > h1 {
+    margin: 5vmax;
+  
+    font: 600 2.5vmax "Roboto";
+  }

@@ -101,7 +101,6 @@ flex: 0.5,
             {/* <div className="line"></div> */}
             </div>
             <div className="myorderpage">
-               
                 <DataGrid
             rows={rows}
             columns={columns}

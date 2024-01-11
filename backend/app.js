@@ -1,11 +1,13 @@
 const express=require("express");
 const app=express();
+
 const errormiddleware =require("./middlewares/error.js");
 const products=require("./routes/productRoute");
 const user=require("./routes/userout.js");
 const order=require("./routes/orderRout.js");
 const cookieparser=require("cookie-parser");
 const cors = require('cors');
+
 const corsOptions ={
     origin:'http://localhost:3000', 
     credentials:true,            //access-control-allow-credentials:true

@@ -72,12 +72,13 @@ export const logout =()=> async (dispatch) => {
 export const register = (userData) => async (dispatch) => {
   try {
     console.log("action")
+    console.log(userData);
     dispatch({ type: REGISTER_USER_REQUEST });
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
-    console.log(userData);
-    const { data } = await axios.put(
-      `http://localhost:3000/api/v1/me/updateprofile`,
+   
+    const { data } = await axios.post(
+      `/api/v1/register`,
      userData,
       config
     ); 

@@ -9,6 +9,12 @@ import {
     ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS, 
   ORDER_DETAILS_FAIL,
+  ALL_ORDER_FAIL,
+  ALL_ORDER_SUCCESS,
+  ALL_ORDER_REQUEST,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_FAIL
 } from "../constants/Orderconstants"
 import axios from "axios";
 // Create Order
@@ -68,4 +74,35 @@ export const createOrder = (order) => async (dispatch) => {
   export const clearerror=()=>async(dispatch)=>{
     dispatch({type:CLEAR_ERRORS});
   }
+
+  //all order
+  export const allorder = () => async (dispatch) => {
+    try {
+      dispatch({ type: ALL_ORDER_REQUEST });
+  
+      const { data } = await axios.get(`/api/v1/admin/order`);
+      console.log(data);
+      dispatch({ type:ALL_ORDER_SUCCESS, payload: data.order });
+    } catch (error) {
+      dispatch({
+        type: ALL_ORDER_FAIL,
+        payload: error.response.data.error,
+      });
+    }
+  };
+
+  export const deleteOrder = (id) => async (dispatch) => {
+    try {
+      dispatch({ type:DELETE_ORDER_REQUEST});
+      const { data } = await axios.delete(`/api/v1/admin/delete/${id}`);
+      console.log(data);
+      dispatch({ type:DELETE_ORDER_SUCCESS, payload: data.order });
+    } catch (error) {
+      dispatch({
+        type: DELETE_ORDER_FAIL,
+        payload: error.response.data.error,
+      });
+    }
+  };
+
   

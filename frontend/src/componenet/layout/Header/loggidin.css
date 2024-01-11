@@ -48,12 +48,13 @@
     position: absolute;
     top: 100px;
     right: 20px;
-    background-color: rgba(224, 214, 214, 0.25);
+    background-color: #fff;
+    /* background-color: rgba(242, 233, 233, 0.25); */
     border-radius: var(--border-radius);
     padding: 10px 20px;
     width: 200px;
     border-radius: 10%;
-    backdrop-filter: 225;
+    /* backdrop-filter: 225; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     z-index: 100;
   }
@@ -70,7 +71,7 @@
     transform: rotate(45deg);
     clip-path: polygon(100% 4%, 0 0, 0 100%);
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background-color: rgba(224, 214, 214, 0.25);
+    background-color: #fff;
   }
   
   .dropdown-menu.active{

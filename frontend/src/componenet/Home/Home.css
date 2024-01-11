@@ -1,5 +1,5 @@
 .banner {
-    background-image: url("../../images/background.jpeg");
+   /* // background-image: url("../../images/background.jpeg"); */
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -46,7 +46,7 @@
     position: absolute;
     top: 0%;
     left: 0;
-    clip-path: polygon(100% 68%, 0 100%, 100% 100%);
+    /* clip-path: polygon(100% 68%, 0 100%, 100% 100%); */
     max-width: 100%;
   }
   
@@ -68,6 +68,11 @@
     flex-wrap: wrap;
     justify-content: center;
     /* max-width: 100vh; */
+    /* background-image: url('https://w7.pngwing.com/pngs/873/1012/png-transparent-sm-mall-of-asia-the-sm-store-sm-supermalls-retail-shopping-centre-thegoodstore-miscellaneous-blue-text.png');
+    background-position: center;
+    background-repeat: repeat; */
+   
+    z-index: -1;
   }
   
   .productCard {
@@ -79,10 +84,12 @@
     margin: 2vmax;
     transition: all 0.5s;
     padding-bottom: 0.5vmax;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
   
   .productCard > img {
     width: 14vmax;
+    height: 15vmax;
   }
   
   .productCard > div {

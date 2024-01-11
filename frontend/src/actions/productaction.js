@@ -10,7 +10,14 @@ import {
     NEW_REVIEW_REQUEST,
     NEW_REVIEW_SUCCESS,
     NEW_REVIEW_FAIL,   
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    ADMIN_PRODUCT_REQUEST,
+    ADMIN_PRODUCT_SUCCESS,
+    ADMIN_PRODUCT_FAIL ,
+    NEW_PRODUCT_REQUEST,
+    NEW_PRODUCT_SUCCESS ,
+    NEW_PRODUCT_RESET,
+    NEW_PRODUCT_FAIL 
 } from "../constants/productconstants"
 let isDataLoaded =false;
 export const getproduct=(keyword="", currentPage=1,price=[0,10000000],category="")=>async(dispatch)=>{
@@ -21,7 +28,7 @@ export const getproduct=(keyword="", currentPage=1,price=[0,10000000],category="
         isDataLoaded=true;
         console.log(data);
         dispatch({
-            type:ALL_PRODUCT_SUCCESS,
+            type:ALL_PRODUCT_SUCCESS, 
             payload:data,
         });
      }catch(error)
@@ -81,6 +88,48 @@ export const newReview=(reviewdata)=>async(dispatch)=>{
     }
 }
 
+
+export const getproductadmin=()=>async(dispatch)=>{
+    try{
+       dispatch({type:ADMIN_PRODUCT_REQUEST});
+       console.log("s");
+       const {data}=await axios.get(`/api/v1/admin/allproducts`);
+       console.log(data);
+       dispatch({
+           type:ADMIN_PRODUCT_SUCCESS,
+           payload:data.Products,
+       });
+    }catch(error)
+    {
+       console.log(error);
+       dispatch({
+       type:ADMIN_PRODUCT_FAIL,
+       payload:error.response.data.error,
+           
+       })
+    }
+}
+
+
+export const createProduct = (userData) => async (dispatch) => {
+    try {
+    //   console.log("action")
+      dispatch({ type: NEW_PRODUCT_REQUEST });
+  
+      const config = { headers: { "Content-Type": "multipart/form-data" } };
+      console.log(userData);
+      const { data } = await axios.post(
+        `/api/v1/admin/product/new`,
+       userData,
+        config
+      ); 
+      
+      dispatch({ type: NEW_PRODUCT_SUCCESS, payload: data.Product });
+    } catch (error) {
+        console.log(error);
+      dispatch({ type:  NEW_PRODUCT_FAIL, payload: error.response.data.error });
+    }
+  };
 export const clearerror=()=>async(dispatch)=>{
     dispatch({type:CLEAR_ERRORS});
 }

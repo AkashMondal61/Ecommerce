@@ -1,10 +1,10 @@
  import {legacy_createStore as createStore , combineReducers,applyMiddleware} from "redux"
  import thunk from "redux-thunk"
  import { composeWithDevTools } from "redux-devtools-extension"
-import { productsReducer , productDetailsReducer, reviewReducer} from "./reducers/productreducer";
+import { productsReducer , productDetailsReducer, reviewReducer, allproductsReducer, newProduct} from "./reducers/productreducer";
 import { allUserReducer, forgotPasswordReducer, profileReducer, userReducer } from "./reducers/usereducer";
 import { addcartreducer } from "./reducers/cartreducer";
-import { OrderReducer, myOrderReducer, newOrderReducer } from "./reducers/Orderreducer";
+import { AllOrderReducer, OrderReducer, deleteOrderReducer, myOrderReducer, newOrderReducer } from "./reducers/Orderreducer";
  const reducer=combineReducers({
  products:productsReducer, 
  productDetails:productDetailsReducer ,
@@ -16,7 +16,11 @@ import { OrderReducer, myOrderReducer, newOrderReducer } from "./reducers/Orderr
  myOrders:myOrderReducer,
  orderDetails:OrderReducer,
 newReview:reviewReducer,
-allUser:allUserReducer  })
+allUser:allUserReducer,
+allproducts:allproductsReducer ,
+createProduct:newProduct,
+AllOrder:AllOrderReducer,
+deleteorder:deleteOrderReducer })
  let initialState={
     cart: {
         cartItems: localStorage.getItem("cartItems")

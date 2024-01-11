@@ -13,8 +13,8 @@ const Login = () => {
     const logintab = useRef(null);
     const registerTab = useRef(null);
     const switcherTab = useRef(null);
-    const [loginemail,setLoginemail]=useState("Email");
-    const [loginpassword,setLoginpassword]=useState("Password");
+    const [loginemail,setLoginemail]=useState("");
+    const [loginpassword,setLoginpassword]=useState("");
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -35,8 +35,8 @@ const Login = () => {
      useEffect(()=>{
         if(error)
         {
-            // alert.error(error);
-            // dispatch(clearerror());
+            alert.error(error);
+            dispatch(clearerror());
         }
         if( isAuthenticated)
         {
@@ -68,7 +68,7 @@ const Login = () => {
         myForm.set("email", email);
         myForm.set("password", password);
         myForm.set("avatar", avatar);
-        console.log(myForm);
+        console.log("register");
         dispatch(register(myForm));
         
       }
@@ -108,7 +108,7 @@ const Login = () => {
                         <div className="loginEmail">
                             <input
                                 type="email"
-                                placeholder="email"
+                                placeholder="Email"
                                 required
                                 value={loginemail}
                                 onChange={(e) => setLoginemail(e.target.value)}

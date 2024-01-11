@@ -10,9 +10,9 @@ const cloudinry=require("cloudinary");
 
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
 ///add cloudinary
-console.log(req.body.email);
+
 const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
-    folder:"avatars",
+    folder:"avatar",
     width:150,
     crop:"scale"
 })
@@ -27,7 +27,9 @@ const User=await user.create({
         public_id:mycloud.public_id,
         url:mycloud.secure_url
     }
+
 })
+console.log("hbjbrejh");
 sendToken(User,201,res);
 })
 
@@ -180,7 +182,7 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
     //delete the previous image from cloudinary add newone
     if(req.user.avatar!==""){
     const userr=await user.findById(req.user.id);
-    const imageid=userr.avatar.public_id;
+    const imageid=userr.avatar.url;
     await cloudinry.v2.uploader.destroy(imageid);
     const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
         folder:"avatars",

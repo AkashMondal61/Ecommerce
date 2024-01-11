@@ -2,12 +2,13 @@ import React from "react"
 import "./Footer1.css"
 import playStore from "../../../images/playstore.png";
 import appStore from "../../../images/apps.png";
-import FacebookIcon from '@mui/icons-material/Facebook';
+import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import SubscriptionsRoundedIcon from '@mui/icons-material/SubscriptionsRounded';
 import { Link } from "react-router-dom"
+import { whitelist } from "validator";
 export const Footer1=()=>{
     return(
         <>
@@ -31,22 +32,30 @@ export const Footer1=()=>{
                                 <ul>
                                     <li>
                                         <a href="#">
-                                            <i class="fab fa-facebook-f"></i>
+                                           <div className="face">
+                                           <FacebookOutlinedIcon style={{ color: 'blue' , fontSize:"40px"}}/>
+                                           </div>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <i class="fab fa-twitter"></i>
+                                        <div className="face">
+                                           <TwitterIcon style={{ color:"Aqua", fontSize:"40px"}}/>
+                                           </div>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <i class="fab fa-linkedin-in"></i>
+                                        <div className="face">
+                                           <InstagramIcon style={{ color:"LightCoral", fontSize:"40px"}}/>
+                                           </div>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="#">
-                                            <i class="fab fa-google-plus-g"></i>
+                                        <div className="face">
+                                           <YouTubeIcon style={{ color:"Crimson" , fontSize:"40px"}}/>
+                                           </div>
                                         </a>
                                     </li>
                                 </ul>
@@ -138,7 +147,7 @@ export const Footer1=()=>{
                 <div class="container">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <p>&copy; Copyright All rights reserved 2019.</p>
+                            <p>&copy; Copyright All rights reserved 2023.</p>
                         </div>
                     </div>
                 </div>

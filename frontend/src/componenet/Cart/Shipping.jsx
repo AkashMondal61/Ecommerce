@@ -21,8 +21,8 @@ import { Checkoutsteps } from "./Checkoutsteps";
   const alert = useAlert();
   const { shippinginfo } = useSelector((state) => state.cart);
 
-  const [adress, setAdress] = useState("adress");
-  const [city, setCity] = useState("city");
+  const [adress, setAdress] = useState("");
+  const [city, setCity] = useState("");
   const [state, setState] = useState("state");
   const [country, setCountry] = useState("country");
   const [pin, setPin] = useState("pinCode");
@@ -59,7 +59,7 @@ import { Checkoutsteps } from "./Checkoutsteps";
               <HomeIcon />
               <input
                 type="text"
-                placeholder="Adress"
+                placeholder="Address"
                 required
                 value={adress}
                 onChange={(e) => setAdress(e.target.value)}

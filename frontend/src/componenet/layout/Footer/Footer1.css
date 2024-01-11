@@ -98,14 +98,16 @@ display: inline-block;
 }
 
 
-.socialLinks ul li a i {
-display: block;
-margin: 0 2px;
+.socialLinks ul li a {
+/* display: block; */
+margin: 0 5px;
 width: 40px;
 height: 40px;
-background: #fafafa;
 border-radius: 50%;
+display: flex;
 text-align: center;
+align-items: center;
+justify-content: center;
 margin-right: 5px;
 line-height: 40px;
 -webkit-transition: all 0.3s ease-in-out;
@@ -220,9 +222,9 @@ font-size: 21px;
 }
 
 .copyRightArea {
-margin-top: 83px;
+margin-top: 33px;
 border-top: 1px solid rgba(255, 255, 255, 0.2);
-padding: 25px 0px 28px;
+padding: 15px 0px 15px;
 }
 
 .copyRightArea p {

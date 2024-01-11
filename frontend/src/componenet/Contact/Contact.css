@@ -1,0 +1,12 @@
+.contact{
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    height: 60vh;
+    width: 100%;
+}
+.contact > p {
+    color:rgb(241, 164, 69);
+    font-size: 1.875em;
+}

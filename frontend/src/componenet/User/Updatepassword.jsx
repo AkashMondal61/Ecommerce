@@ -16,8 +16,8 @@ export const Updatepassword = () => {
     let Navigate = useNavigate();
     const { user } = useSelector((state) => state.userDetails);
     const { error, isUpdated, loading } = useSelector((state) => state.profile);
-    const [oldpassword,setoldpassword]=useState("oldPassword");
-    const [newpassword,setnewpassword]=useState("Password");
+    const [oldpassword,setoldpassword]=useState("");
+    const [newpassword,setnewpassword]=useState("");
 
     const [confirmpassword,setconfirmpassword]=useState("CPassword");
     useEffect(() => {

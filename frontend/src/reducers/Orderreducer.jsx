@@ -4,7 +4,14 @@ import { CREATE_ORDER_FAIL, CREATE_ORDER_REQUEST,  CREATE_ORDER_SUCCESS,CLEAR_ER
   MY_ORDER_SUCCESS,
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_SUCCESS, 
-  ORDER_DETAILS_FAIL} from "../constants/Orderconstants";
+  ORDER_DETAILS_FAIL,
+  ALL_ORDER_FAIL,
+  ALL_ORDER_SUCCESS,
+  ALL_ORDER_REQUEST,
+  DELETE_ORDER_REQUEST,
+  DELETE_ORDER_SUCCESS,
+  DELETE_ORDER_RESET,
+  DELETE_ORDER_FAIL} from "../constants/Orderconstants";
 
 
 export const newOrderReducer = (state = {}, action) => {
@@ -83,6 +90,73 @@ export const newOrderReducer = (state = {}, action) => {
       case ORDER_DETAILS_FAIL:
         return {
           loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+  
+      default:
+        return state;
+    }
+  }
+
+  export const AllOrderReducer = (state = {allOrder: []}, action) => {
+    switch (action.type) {
+      case ALL_ORDER_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+  
+      case  ALL_ORDER_SUCCESS:
+        return {
+          loading: false,
+          allOrder: action.payload,
+        };
+  
+      case ALL_ORDER_FAIL:
+        return {
+          loading: false,
+          error: action.payload,
+        };
+      case CLEAR_ERRORS:
+        return {
+          ...state,
+          error: null,
+        };
+  
+      default:
+        return state;
+    }
+  }
+
+
+  export const deleteOrderReducer = (state = {}, action) => {
+    switch (action.type) {
+      case DELETE_ORDER_REQUEST:
+        return {
+          loading: true,
+        };
+  
+      case  DELETE_ORDER_SUCCESS:
+        return {
+          loading: false,
+          success:true,
+          allOrder: action.payload,
+        };
+        case DELETE_ORDER_RESET:
+          return {
+            ...state,
+            success:false,
+            isDeleted: false,
+          };
+      case DELETE_ORDER_FAIL:
+        return {
+          loading: false,
+          success:false,
           error: action.payload,
         };
       case CLEAR_ERRORS:

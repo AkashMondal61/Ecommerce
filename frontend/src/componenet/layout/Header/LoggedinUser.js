@@ -20,7 +20,6 @@ export const LoggedinUser=({user})=>{
       let handler = (e)=>{
         if(!menuRef.current.contains(e.target)){
           setOpen(false);
-          console.log(menuRef.current);
         }      
       };
   
@@ -40,7 +39,7 @@ export const LoggedinUser=({user})=>{
     ]
     if(user.role==="admin")
     {
-      option.unshift({icon:<Dashboard/>,name:"Dadhboard",func:dashboard})
+      option.unshift({icon:<Dashboard/>,name:"Dashboard",func:dashboard})
     }
     function orders(){
      navigate("/myorders")
@@ -53,13 +52,12 @@ export const LoggedinUser=({user})=>{
      }
     function logouts(){
       dispatch(logout());
+      console.log("loggedinuser")
       alert.success("Logged out successfully")
       navigate("/");
     } 
     function dashboard(){
-
       navigate("/dashboard"); 
-      alert.success("successfully logged out")
     }
 return( <Fragment>
      <div className="App">
@@ -70,7 +68,7 @@ return( <Fragment>
 
         <div className={`dropdown-menu ${open? 'active' : 'inactive'}`} >
           <h3>Akash Mondal<br/><span>Website Designer</span></h3>
-          <ul>
+          <ul onClick={()=>{setOpen(!open)}}>
             {option.map((item)=>(<DropdownItem img={item.icon} text={item.name} fun={item.func}/>))}
           </ul>
         </div>
@@ -80,7 +78,7 @@ return( <Fragment>
 }
 function DropdownItem(props){
     return(
-      <li className = 'dropdownItem' onClick={props.fun}>
+      <li className = 'dropdownItem' onClick={props.fun} >
         <span>{props.img}</span>
         <a> {props.text} </a>
       </li>

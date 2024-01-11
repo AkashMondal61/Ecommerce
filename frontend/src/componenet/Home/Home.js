@@ -7,6 +7,7 @@ import { getproduct, getIsDataLoaded, clearerror } from "../../actions/productac
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../layout/Loader/Loader";
 import { useAlert } from "react-alert";
+import { Banner } from "./Banner";
 const Home = () => {
   const alert=useAlert();
   const dispatch = useDispatch();
@@ -27,14 +28,15 @@ const Home = () => {
     <Fragment>
      {loading?<Loader/>: 
       <Fragment>
-        <div className="banner">
+        {/* <div className="banner">
         <p>Welcome to Ecommerce</p>
         <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
         <a href="#container">
           <button>Scroll</button>
         </a>
-        </div>
+        </div> */}
+        <Banner/>
       <h2 className="homeHeading">Featured Products</h2>
       <div className="container" id="container">
         {/* {products.length > 0 ? (

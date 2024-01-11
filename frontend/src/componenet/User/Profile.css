@@ -124,12 +124,14 @@
       font: 400 1.7vmax "Roboto";
       padding: 1vmax;
     }
-  
+    .profileContainer > div:first-child{
+      box-shadow:none;
+    }
     .profileContainer > div:last-child {
       text-align: center;
       align-items: center;
        height: 100vh;
-       box-shadow: white;
+       box-shadow:none;
     width: 100vw;
     }
   
@@ -147,4 +149,5 @@
       padding: 1vmax;
       margin: 2vmax 0;
     }
+   
   }

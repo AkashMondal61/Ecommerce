@@ -4,11 +4,43 @@ const Errorhandeler =require("../utils/errorhandellaer.js");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const express = require("express");
 const Features = require("../utils/features.js");
+const cloudinry=require("cloudinary");
 const { listenerCount } = require("nodemailer/lib/xoauth2/index.js");
 //creat product --- Admin
 exports.createProduct=catchAsyncErrors(async(req,res,next)=>{
   req.body.user=req.user.id;
+  let imagearr=[];
+  console.log(typeof(req.body.image));
+  if(typeof(req.body.image)==="string")
+  {
+    imagearr.push(req.body.image);
+  }
+  else
+  {
+       imagearr=req.body.image;
+  }
+  let uploadedImages = [];
+
+  for(let i=0;i<imagearr.length;i++)
+  {
+    const imageURL = imagearr[i];
+    const result = await cloudinry.v2.uploader.upload(imageURL,{
+      folder:"Images",
+      width:150,
+      crop:"scale"
+    });
+    console.log(imagearr)
+    uploadedImages.push({
+      public_id: result.public_id,
+      url: result.secure_url,
+    });
+}
+  console.log(imagearr)
+  req.body.image=uploadedImages;
+  console.log(uploadedImages);
   const Product= await product.create(req.body);
+  console.log("producdt created");
+  console.log(Product);
    res.status(201).json({
       success:true, 
       Product
@@ -30,9 +62,6 @@ exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
     if (price) {
       querys.price = { $gte: price.gt, $lte:price.lt };
     }
-    // if (ratings) {
-    //   filters.ratings = { $gte: parseInt(ratings) };
-    // }
     if (category) {
       querys.category = { $regex: new RegExp(category, 'i') };
     }
@@ -54,13 +83,6 @@ exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
     {
       Products = await product.find(querys) 
     }
-   
-  // console.log(Products);
-  //  const apifeature=new Features(product.find(),req.query)
-  //  .search()
-  //  .filter()
-  //  .pagination(elementperpage);
-  //  let products= await apifeature.query;
     if(!Products)
     {
         return next(new Errorhandeler("No product exist",404));
@@ -78,13 +100,8 @@ exports.getAllProducts = catchAsyncErrors(async(req,res,next)=>{
 
 exports.updateProduct=catchAsyncErrors(async(req,res,next)=>{
      let upProduct=await product.findById(req.params.id); 
-     //if product is not found
      if(!upProduct)
      {
-        // res.status(404).json({
-        //     success:false,
-        //     message:"Product not found"
-        // }) 
         return next(new Errorhandeler("Product not found",404));
      }
      console.log("jhgjh");
@@ -104,10 +121,6 @@ exports.updateProduct=catchAsyncErrors(async(req,res,next)=>{
     let deproduct=await product.findByIdAndRemove(req.params.id);
     if(!deproduct)
     {
-        // res.status(404).json({
-        //     success:false,
-        //     message:"Product not found"
-        // }) ;
         return next(new Errorhandeler("Product not exist to delete",404));
     }
     console.log(deproduct); 
@@ -126,10 +139,6 @@ exports.getProductdetails=catchAsyncErrors(async(req,res,next)=>{
   const theproduct=await product.findById(req.params.id);
   if(!theproduct)
   {
-    //  return res.status(404).json({ 
-    //       success:false,
-    //       message:"Product not found"
-    //   }) 
    return next(new Errorhandeler("Product not found",404));
   }
   res.status(200).json({ 
@@ -218,3 +227,14 @@ exports.deleteReviews=catchAsyncErrors(async(req,res,next)=>{
     Product
   })
 })
+
+//Get All Products  for Admin
+exports.getAllProductsadmin = catchAsyncErrors(async(req,res,next)=>{
+  
+  console.log(product)
+    const   Products = await product.find();
+     res.status(202).json({ 
+         success:true,
+         Products 
+      });   
+ })
