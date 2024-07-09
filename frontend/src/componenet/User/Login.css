@@ -6,11 +6,46 @@
     justify-content: center;
     align-items: center;
     background: linear-gradient(rgba(255,255,255,.5), rgba(255,255,255,.5)),url("https://img.freepik.com/free-vector/ecommerce-web-store-hand-drawn-illustration_107791-10966.jpg");
-   
     background-color: rgb(231, 231, 231);
     position: fixed;
     top: 0%;
     left: 0;
+  }
+  .login-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* padding: 8px 16px; */
+    border: 1px solid #cbd5e1;
+    border-radius: 0.5rem;
+    color: #374151;
+    text-decoration: none;
+    transition: all 0.15s ease-in-out;
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    width: 100%;
+  }
+
+  .login-button img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .login-button:hover {
+    border-color: #94a3b8;
+    color: #1f2937;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  .dark .login-button {
+    border-color: #475569;
+    color: #e2e8f0;
+  }
+
+  .dark .login-button:hover {
+    border-color: #64748b;
+    color: #cbd5e1;
   }
   .LoginSignin {
     position: absolute;
@@ -137,7 +172,6 @@
 }
 #registerImage{
   display: flex;
-  /* flex-direction: column; */
   gap: 30px;
 }
 #registerImage > img {
@@ -166,7 +200,17 @@
   #registerImage > input::file-selector-button:hover {
     background-color: rgb(235, 235, 235);
   }
-
+ .autofill{
+  background-color: rgb(183, 222, 248);
+  width: 100%;
+  height: 5vh;
+  border: none;
+  margin: 0%;
+  font: 400 0.8vmax cursive;
+  transition: all 0.5s;
+  padding: 0 1vmax;
+  
+ }
   @media screen and ( max-width: 850px){
     .LoginSignin {
       width:35vh;
@@ -218,7 +262,6 @@
 }
 #registerImage{
   display: flex;
-  /* flex-direction: column; */
   gap: 20px;
 }
 #registerImage > img {

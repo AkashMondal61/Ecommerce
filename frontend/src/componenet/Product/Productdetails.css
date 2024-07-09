@@ -12,9 +12,23 @@ body{
   }
   .im{
     width: 50%;
-    padding-left: 10vmax;
-    padding-top: 10vmax;
-    padding-bottom: 10vmax;
+    display:  flex;
+    flex-direction: row;
+    /* padding-left: 20vmax; */
+    padding-left: 5vmax;
+     padding-top: 10vmax;
+    /*padding-bottom: 10vmax; */
+  }
+  .allimage{
+    padding: 20px 0px 20px 20px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+  }
+  .carousel
+  {
+    padding-top: 20px;
+    width: 55%;
   }
   .CarouselImage{
     height:30vmax;
@@ -22,13 +36,14 @@ body{
     padding-left: 5vmax;
   }
   .Carousel {
-    width: 100%;
-    flex: 1; /* Takes up the available space */
+    /* width: 100%; */
+    /* flex: 1; */
+    padding-left: 0px;
   }
   
   
    .details {
-    width: 100%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -233,12 +248,26 @@ body{
       padding-left: 10vmax;
       padding-top: 10vmax;
       padding-bottom: 5vmax;
+      flex-direction: column;
+    }
+    .allimage{
+      padding: 20px 0px 20px 20px;
+      width: 100%;
+      flex-direction: row;
+      gap:10px;
+      overflow-x: scroll;
+    }
+    .carousel
+    {
+      padding-top: 20px;
+      width:100%;
     }
     .CarouselImage{
       height:30vmax;
       
     }
     .details{
+      width: 100%;
       padding-top: 5vmax;
       align-items: center;
     }

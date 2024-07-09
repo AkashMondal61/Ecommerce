@@ -13,12 +13,12 @@ const Search=()=>{
     return (
         <Fragment>
           <form className="searchBox" onSubmit={searchSubmitHandler}>
-        <input
-          type="text"
-          placeholder="Search a Product ..."
-          onChange={(e) => setKeyword(e.target.value)}
-        />
-        <input type="submit" value="Search" />
+          <input
+            type="text"
+            placeholder="Search a Product ..."
+            onChange={(e) => setKeyword(e.target.value)}
+          />
+         <input type="submit" value="Search" />
       </form>
         </Fragment>
     )

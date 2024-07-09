@@ -31,7 +31,7 @@ export const createOrder = (order) => async (dispatch) => {
       
       dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       dispatch({
         type: CREATE_ORDER_FAIL,
         payload: error.response.data.error,
@@ -48,7 +48,7 @@ export const createOrder = (order) => async (dispatch) => {
       
       dispatch({ type: MY_ORDER_SUCCESS, payload: data.order });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       dispatch({
         type: MY_ORDER_FAIL,
         payload: error.response.data,
@@ -62,7 +62,7 @@ export const createOrder = (order) => async (dispatch) => {
       dispatch({ type: ORDER_DETAILS_REQUEST });
   
       const { data } = await axios.get(`/api/v1/order/showone/${id}`);
-      console.log(data);
+      // console.log(data);
       dispatch({ type:ORDER_DETAILS_SUCCESS, payload: data.order });
     } catch (error) {
       dispatch({
@@ -81,7 +81,7 @@ export const createOrder = (order) => async (dispatch) => {
       dispatch({ type: ALL_ORDER_REQUEST });
   
       const { data } = await axios.get(`/api/v1/admin/order`);
-      console.log(data);
+      // console.log(data);
       dispatch({ type:ALL_ORDER_SUCCESS, payload: data.order });
     } catch (error) {
       dispatch({
@@ -95,7 +95,7 @@ export const createOrder = (order) => async (dispatch) => {
     try {
       dispatch({ type:DELETE_ORDER_REQUEST});
       const { data } = await axios.delete(`/api/v1/admin/delete/${id}`);
-      console.log(data);
+      // console.log(data);
       dispatch({ type:DELETE_ORDER_SUCCESS, payload: data.order });
     } catch (error) {
       dispatch({

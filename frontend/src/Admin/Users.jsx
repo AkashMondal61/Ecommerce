@@ -40,7 +40,6 @@ export const Users = ({ history }) => {
   };
 
   useEffect(() => {
-    console.log("used")  
     if (error) {
       alert.error(error);
       dispatch(clearerror());

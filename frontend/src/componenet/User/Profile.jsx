@@ -15,13 +15,13 @@ export const Profile = () => {
     const { loading, isAuthenticated, user, error } = useSelector(state => state.userDetails)
     useEffect(() => {
      
-        console.log("called in profile")
+        // console.log("called in profile")
         if (!isAuthenticated) {
-            console.log(isAuthenticated);  
-            console.log("aa");
+            // console.log(isAuthenticated);  
+            // console.log("aa");
             Navigate("/login");
-            Alert.error(error);
-            //    dispatch(clearerror( )); 
+            // Alert.error(error);
+            // dispatch(clearerror( )); 
         }
         
     }, [Alert, isAuthenticated, dispatch,Navigate])
@@ -31,7 +31,6 @@ export const Profile = () => {
                 <Loader/>
             ) : (
         <>
-                    {/* <MetaData title={`${user.name}'s Profile`} /> */}
                     <div className="profileContainer">
                         <div>
                             <h1>My Profile</h1>

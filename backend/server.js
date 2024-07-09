@@ -1,11 +1,9 @@
 const app=require("./app");
 const dotenv=require("dotenv");
 const cloudinary=require("cloudinary");
+
 //database 
 const connectDatabase=require("./config/database");
-
-
-//handelling uncaught exception
 process.on("uncaughtException",(err)=>{
     console.log(`Error:${err.message}`);
     console.log(`Sutting down the error due to uncaught exception`);
@@ -28,7 +26,6 @@ const server=app.listen(process.env.PORT,()=>{
     console.log(`Server is running at http://localhost:${process.env.PORT}`);
 });
   
-
 ///Unhandeled promise error
 process.on("unhandledRejection",(err)=>{
     console.log(`Error:${err.message}`);

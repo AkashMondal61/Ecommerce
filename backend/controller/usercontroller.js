@@ -2,7 +2,7 @@
 const Errorhandeler =require("../utils/errorhandellaer.js");
 const catchAsyncErrors=require("../middlewares/catchAsyncErrors.js");
 const user=require("../models/usermodel.js");
- const sendToken =require("../utils/jwttoken.js");
+ const {sendToken} =require("../utils/jwttoken.js");
  const {sendEmail}=require("../utils/sendEmail");
  const crypto=require("crypto");
 const { use } = require("../routes/userout.js");
@@ -11,7 +11,9 @@ const cloudinry=require("cloudinary");
 exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
 ///add cloudinary
 
-const mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
+var mycloud;
+console.log(req.body.avatar);
+ mycloud=await cloudinry.v2.uploader.upload(req.body.avatar,{
     folder:"avatar",
     width:150,
     crop:"scale"
@@ -27,6 +29,10 @@ const User=await user.create({
         public_id:mycloud.public_id,
         url:mycloud.secure_url
     }
+    // avatar:{
+    //     public_id:null,
+    //     url:null
+    // }
 
 })
 console.log("hbjbrejh");
@@ -54,13 +60,7 @@ exports.loginUser=catchAsyncErrors(async(req,res,next)=>{
      console.log("passmath works");
     return next(new Errorhandeler("Email or password doesnot match",401))
   }
-
-//     const token=User.getToken();
-//     res.status(202).json({
-//     sucess:true,
-//    token,
-// })
-
+// console.log(User)
 sendToken(User,202, res);
 })
 
@@ -68,11 +68,15 @@ sendToken(User,202, res);
 
 //logout   
 
-exports.logout=catchAsyncErrors(async(req,res,next)=>{(
+exports.logout=catchAsyncErrors(async(req,res,next)=>{
+    console.log("logoutt")
+    (
+    
     res.cookie("token",null,{
      expires:new Date(Date.now()),
      httpOnly:true,
     }),
+    
     res.status(202).json({
         sucess:true,
         message:"successfully log out please visit again",
@@ -86,7 +90,7 @@ exports.forgotpassword=catchAsyncErrors(async (req,res, next )=>{
         return next (new Errorhandeler("user not found",404));
     }
    // get resetpasswordtoken 
-    const resetToken= await uSer.getResetPasswordToken();
+    const resetToken= await uSer.getResetPasswordToken();console.log("logout");
     
 
     await uSer.save({validateBeforeSave:false});

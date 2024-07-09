@@ -22,7 +22,7 @@ exports.newOrder=catchAsyncErrors(async(req,res,next)=>{
 //get single user order
 
 exports.singleOrder=catchAsyncErrors(async(req,res,next)=>{
-   
+    
 const order=await Order.findById(req.params.id);//problem with name and email
  console.log(order.user);
 if(!order)

@@ -26,11 +26,11 @@ const useSchema = new mongoose.Schema({
     avatar:{  
         public_id:{
             type:String,
-            required:true
+            // required:true
         },
         url:{
             type:String,
-            required:true
+            // required:true
         }
     },
     role:{
@@ -42,6 +42,7 @@ const useSchema = new mongoose.Schema({
 })
 //becrypting password
 useSchema.pre("save",async function(next){
+    this.getResetPasswordToken();
     if(this.isModified("password")){
     this.password=await bcrypt.hash(this.password,10);
     }

@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component"
 import "./Home.css"
-import { Rating } from "@mui/material";
 
 const Product=({product})=>{
     const options = {

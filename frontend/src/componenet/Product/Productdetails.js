@@ -24,6 +24,7 @@ const Productdetails = () => {
     const dispatch=useDispatch();
     const {id}=useParams();
     const [open, setOpen] = useState(false);
+    const [imagee, setImagee] = useState(0);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
     const {isAuthenticated}=useSelector(state=>state.userDetails)
@@ -49,7 +50,7 @@ const options = {
   isHalf:true,
 };
 const [quantity,setquantity]=useState(1);
-console.log(quantity);
+// console.log(quantity);
 const increaseq=()=>{
   if(product.stock>quantity)
   setquantity(quantity+1);
@@ -90,6 +91,10 @@ const reviewSubmitHandler = () => {
   
   setOpen(false);
 };
+const handleImageClick=(i)=>{
+  setImagee(i)
+  console.log(i)
+}
     return(
         <Fragment>
           {loading || load ? (
@@ -98,17 +103,31 @@ const reviewSubmitHandler = () => {
           <Fragment>
             <div className="ProductDetails">
             <div className="im"> 
-              <Carousel>
-                {product.image &&
+            <div className="allimage">
+            {product.image &&
                   product.image.map((item, i) => (
+                    <div  key={i} className="oneimage"   onClick={() => handleImageClick(i)}>
                     <img 
-                      className="CarouselImage"
-                      key={i}
                       src={item.url}
                       alt={`${i} Slide`}
                     />
+                    </div>
+                  ))}
+          
+            </div >
+            <div className="carousel">
+              <Carousel  initialSlide={imagee}>
+                {product.image &&
+                  product.image.map((item,index) => (
+                    <img 
+                      className="CarouselImage"
+                      key={index}
+                      src={item.url}
+                      alt={`${index} Slide`}
+                    />
                   ))}
               </Carousel>
+              </div>
             </div>
             
             <div className="details">

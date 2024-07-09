@@ -15,12 +15,12 @@ import { AllOrderReducer, OrderReducer, deleteOrderReducer, myOrderReducer, newO
  newOrder:newOrderReducer,
  myOrders:myOrderReducer,
  orderDetails:OrderReducer,
-newReview:reviewReducer,
-allUser:allUserReducer,
-allproducts:allproductsReducer ,
-createProduct:newProduct,
-AllOrder:AllOrderReducer,
-deleteorder:deleteOrderReducer })
+ newReview:reviewReducer,
+ allUser:allUserReducer,
+ allproducts:allproductsReducer ,
+ createProduct:newProduct,
+ AllOrder:AllOrderReducer,
+ deleteorder:deleteOrderReducer })
  let initialState={
     cart: {
         cartItems: localStorage.getItem("cartItems")

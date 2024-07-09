@@ -29,16 +29,13 @@ export const Orders = ({ history }) => {
     dispatch(deleteOrder(id));
 
     if (success) {
-        console.log("ncjd");
-      console.log(`${success}`)
       alert.success("Order Deleted Successfully");
       Navigate("/allorder");
       dispatch({ type: DELETE_ORDER_RESET});
     }
   };
 
-  useEffect(() => {
-    console.log("used")  
+  useEffect(() => { 
     if (error) {
       alert.error(error);
       dispatch(clearerror());
@@ -50,8 +47,6 @@ export const Orders = ({ history }) => {
     }
 
     if (success) {
-        console.log("ncjd");
-      console.log(`${success}`)
       alert.success("Order Deleted Successfully");
       Navigate("/allorder");
       dispatch({ type: DELETE_ORDER_RESET});

@@ -36,18 +36,15 @@ import {
 export const login = (email, password) => async (dispatch) => {
     try {
       dispatch({ type: LOGIN_REQUEST });
-  
       const config = { headers: { "Content-Type": "application/json" } };
   
       const { data } = await axios.post(
         `/api/v1/login`,
-        { email, password },
+        { email , password },
         config
       );
-  
       dispatch({ type: LOGIN_SUCCESS, payload: data.user });
     } catch (error) {
-        console.log(error);
       dispatch({ type: LOGIN_FAIL, payload: error.response.data.error });
     }
   };
@@ -59,20 +56,14 @@ export const logout =()=> async (dispatch) => {
       const {data}= await axios.get(
         `/api/v1/logout`
       );
-      console.log("logout");
-      console.log(data);
       dispatch({ type: LOGOUT_SUCCESS ,payload: data});
     } catch (error) {
-      console.log(error);
       dispatch({ type:  LOGOUT_FAIL, payload: error.response.data.error });
     }
   };
-
 //REGISTER
 export const register = (userData) => async (dispatch) => {
   try {
-    console.log("action")
-    console.log(userData);
     dispatch({ type: REGISTER_USER_REQUEST });
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
@@ -85,7 +76,6 @@ export const register = (userData) => async (dispatch) => {
    
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
-      console.log(error);
     dispatch({ type: REGISTER_USER_FAIL, payload: error.response.data.error });
   }
 };
@@ -98,11 +88,8 @@ export const load = () => async (dispatch) => {
     const { data } = await axios.get(
       `/api/v1/me`
     );
-    console.log("user paini");
-   console.log(data);
      dispatch({ type:  LOAD_USER_SUCCESS, payload: data.uSer });
   } catch (error) {
-      console.log(error);
     dispatch({ type:  LOAD_USER_FAIL, payload: error.response.data.error });
   }
 };
@@ -114,20 +101,16 @@ export const clearerror=()=>async(dispatch)=>{
 //update profile
 export const updateprofile = (userData) => async (dispatch) => {
   try {
-    console.log("action")
     dispatch({ type: UPDATE_PROFILE_REQUEST });
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
-    console.log(userData);
     const { data } = await axios.put(
       `http://localhost:3000/api/v1/me/updateprofile`,
-     userData,
+      userData,
       config
     ); 
-   console.log(data);
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: data.uSer });
   } catch (error) {
-      console.log(error);
     dispatch({ type: UPDATE_PROFILE_FAIL, payload: error.response.data.error });
   }
 }
@@ -140,17 +123,13 @@ export const updateprofile = (userData) => async (dispatch) => {
       dispatch({ type: UPDATE_PASSWORD_REQUEST });
   
       const config = { headers: { "Content-Type": "application/json" } };
-      console.log(userData);
-      console.log("uppass")
       const { data } = await axios.put(
         `http://localhost:3000/api/v1/updatepassword`,
        userData,
         config
       ); 
-     console.log(data);
       dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.user });
     } catch (error) {
-        console.log(error);
       dispatch({ type: UPDATE_PASSWORD_FAIL, payload: error.response.data.error });
     }
 };
@@ -184,11 +163,8 @@ export const resetPassword = (token,datas) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
  
     const { data } = await axios.put(`/api/v1/resetpassword/${token}`, datas, config);
-       console.log(datas);
-    console.log(token)
     dispatch({ type: RESET_PASSWORD_SUCCESS, payload: data.sucess });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: RESET_PASSWORD_FAIL,
       payload: error.response.data.error,
@@ -200,16 +176,13 @@ export const resetPassword = (token,datas) => async (dispatch) => {
 
 export const alluser = () => async (dispatch) => {
   try {
-    console.log("action")
     dispatch({ type: ALL_USER_REQUEST });
 
     const { data } = await axios.get(
       `/api/v1/admin/alluser`,
     ); 
-   console.log(data);
     dispatch({ type: ALL_USER_SUCCESS, payload: data.uSers });
   } catch (error) {
-      console.log(error);
     dispatch({ type: ALL_USER_FAIL , payload: error.response.data.error });
   }
 }
